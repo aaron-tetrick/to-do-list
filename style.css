@@ -35,20 +35,20 @@ h2 {
     font-size: 2rem;
 }
 
-.inbox-div {
+.sidebar-list-div {
     display: flex;
     justify-content: center;
     align-items: flex-start;
     background-color: gray;
 }
 
-.inbox-list {
+.sidebar-list {
     list-style: none;
     font-size: 1.5rem;
     padding: 15px;
 }
 
-.inbox-list li {
+.sidebar-list li {
     padding: 5px;
     border: 1px black solid;
 }
@@ -77,4 +77,93 @@ h2 {
     height: 100px;
     width: 100%;
     height: 100%;
+}
+
+.title {
+    font-size: 3rem;
+}
+
+.new-task {
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #f4f4f4;
+    margin: 20% 22%;
+    padding: 20px;
+    width: 70%;
+    box-shadow: 0 5px 8px 0 rgba(0,0,0,0.2), 0 7px 20px 0 rgba(0,0,0,0.2)
+}
+
+.modal-header-div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 2px orange solid;
+}
+
+.close-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(173, 173, 173);
+    width: 30px;
+    height: 30px;
+    font-size: 40px;
+}
+
+.close-btn:hover, .close-btn:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-body-div {
+    border: solid 2px purple;
+}
+
+.modal-form {
+    border: 2px fuchsia solid;
+
+}
+
+.modal-footer-div {
+    border: 2px solid green;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.add-btn, .cancel-btn {
+    font-size: 20px;
+    padding: 12px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+
+}
+
+.add-btn {
+    background-color: rgb(11, 100, 11);
+
+}
+
+.cancel-btn {
+    background-color: rgb(194, 16, 16);
+
 }
