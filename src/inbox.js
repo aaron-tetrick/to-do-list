@@ -1,18 +1,19 @@
 const createInbox = function()  {
     const content = document.getElementById('content');
+    const inboxDiv = document.createElement('div');
     const title = document.createElement('h2');
     const newTask = document.createElement('p');
-    const modalHeader = document.createElement('div');
-
-    
+        
     title.innerText = "Inbox";
-    newTask.innerText = "New Task";
+    newTask.innerText = "+ New Task";
 
+    inboxDiv.classList.add('inbox-div');
     title.classList.add('title');
     newTask.classList.add('new-task');
 
-   content.appendChild(title);
-    content.appendChild(newTask);
+    inboxDiv.appendChild(title);
+    inboxDiv.appendChild(newTask);
+    content.appendChild(inboxDiv);
 }
 
 
