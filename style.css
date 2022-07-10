@@ -143,12 +143,14 @@ h2 {
 
 .modal-body-div {
     padding: 20px;
-
 }
 
+/* FORM ELEMENTS */
 .modal-form {
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 
 .form-div-1, .form-div-2 {
@@ -159,6 +161,10 @@ h2 {
     justify-content: space-evenly;
     margin: 10px;
     padding: 0px 20px;
+}
+
+.modal-inputs {
+    display: flex;
 }
 
 .input-div {
@@ -187,9 +193,9 @@ h2 {
     max-height: 150px;
 }
 
-.modal-footer-div {
+.form-div-3 {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
 }
 

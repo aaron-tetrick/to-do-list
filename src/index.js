@@ -7,26 +7,23 @@ createInbox();
 createModal();
 
 //Open/Close the Modal
-const operateModal = (function() {
     const newTask = document.querySelector('.new-task');
     const closeModalBtn = document.querySelector('.close-btn');
-    const _modal = document.querySelector('.modal');
+    const modal = document.querySelector('.modal');
     const cancelBtn = document.querySelector('.cancel-btn');
+    const inputTitle = document.querySelector('.input-title');
 
     function addTask() {
-        _modal.style.display = "block";
+        modal.style.display = "block";
     }
     
     function closeModal() {
-        _modal.style.display = "none";
+        modal.style.display = "none";
     }
-    
-    return {addTask, closeModal, closeModalBtn, cancelBtn, newTask}
-})();
 
-operateModal.newTask.addEventListener('click', operateModal.addTask);
-operateModal.closeModalBtn.addEventListener('click', operateModal.closeModal)
-operateModal.cancelBtn.addEventListener('click', operateModal.closeModal);
+newTask.addEventListener('click', addTask);
+closeModalBtn.addEventListener('click', closeModal)
+cancelBtn.addEventListener('click', closeModal);
 
 
 const addBtn = document.querySelector('.add-btn');
@@ -39,19 +36,25 @@ const addNewTask = (function() {
     return {myFunc}
 })();
 
-
+//Click Add Button
 addBtn.addEventListener('click', addNewTask.myFunc);
-addBtn.addEventListener('click', operateModal.closeModal);
+addBtn.addEventListener('click', closeModal);
 
-
+//Sidebar list
 const inbox = document.querySelector('.inbox');
 const today = document.querySelector('.today');
 const week = document.querySelector('.week');
 
+//Side bar list event listeners
 inbox.addEventListener('click', selectInbox);
 today.addEventListener('click', selectToday);
 week.addEventListener('click', selectWeek);
+inbox.addEventListener('click', reloadPage);
 
+
+function reloadPage() {
+    location.reload();
+}
 
 //Open Inbox
 function selectInbox() {
@@ -72,29 +75,10 @@ function selectInbox() {
     week.classList.remove('current-page');
 
     createInbox();
-    createModal();
-
-    const operateModal = (function() {
-        const newTask = document.querySelector('.new-task');
-        const closeModalBtn = document.querySelector('.close-btn');
-        const _modal = document.querySelector('.modal');
-        const cancelBtn = document.querySelector('.cancel-btn');
-    
-        function addTask() {
-            _modal.style.display = "block";
-        }
-        
-        function closeModal() {
-            _modal.style.display = "none";
-        }
-        
-        return {addTask, closeModal, closeModalBtn, cancelBtn, newTask}
-    })();
-    
-    operateModal.newTask.addEventListener('click', operateModal.addTask);
-    operateModal.closeModalBtn.addEventListener('click', operateModal.closeModal)
-    operateModal.cancelBtn.addEventListener('click', operateModal.closeModal);
+    //createModal();
 }
+
+console.log(inputTitle.parentElement.parentElement.parentElement.parentElement.parentElement);
 
 
 //Open Today's projects
@@ -141,4 +125,29 @@ function selectWeek() {
 }
 
 
-//console.log(addNewTask.test);
+
+
+
+
+// const operateModal = (function() {
+//     const newTask = document.querySelector('.new-task');
+//     const closeModalBtn = document.querySelector('.close-btn');
+//     const _modal = document.querySelector('.modal');
+//     const cancelBtn = document.querySelector('.cancel-btn');
+
+//     function addTask() {
+//         _modal.style.display = "block";
+//     }
+    
+//     function closeModal() {
+//         _modal.style.display = "none";
+//     }
+    
+//     return {addTask, closeModal, closeModalBtn, cancelBtn, newTask}
+// })();
+
+
+// console.log(operateModal.newTask)
+//  operateModal.newTask.addEventListener('click', operateModal.addTask);
+//  operateModal.closeModalBtn.addEventListener('click', operateModal.closeModal)
+//  operateModal.cancelBtn.addEventListener('click', operateModal.closeModal);

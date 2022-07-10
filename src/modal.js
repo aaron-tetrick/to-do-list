@@ -8,6 +8,7 @@ const createModal = function() {
     const modalHeader = document.createElement('h2');
     const modalBodyDiv = document.createElement('div');
     const modalForm = document.createElement('form');
+
     const inputTitle = document.createElement('input');
     const inputDate = document.createElement('input');
     const inputDescription = document.createElement('textarea');
@@ -16,6 +17,8 @@ const createModal = function() {
 
     const formDiv1 = document.createElement('div');
     const formDiv2 = document.createElement('div');
+
+    const modalInputs = document.createElement('div');
     
     const labelTitle = document.createElement('label');
     const labelDate = document.createElement('label');
@@ -33,7 +36,7 @@ const createModal = function() {
     const optionMed = document.createElement('option');
     const optionLow = document.createElement('option');
 
-    const modalFooterDiv = document.createElement('div');
+    const formDiv3 = document.createElement('div');
     const addBtn = document.createElement('button');
     const cancelBtn = document.createElement('button');
 
@@ -56,12 +59,27 @@ const createModal = function() {
     optionMed.setAttribute('value', 'medium');
     optionLow.setAttribute('value', 'low');
 
+    inputTitle.setAttribute('required', '');
+    
+    inputTitle.setAttribute('name', 'title1');
+    inputDate.setAttribute('name', 'date');
+    inputDescription.setAttribute('name', 'description');
+    inputPriority.setAttribute('name', 'priority');
+    inputProject.setAttribute('name', 'project');
+
+    labelTitle.setAttribute('for', 'title1');
+    labelDate.setAttribute('for', 'date');
+    labelDescription.setAttribute('for', 'description');
+    labelPriority.setAttribute('for', 'priority');
+    labelProject.setAttribute('for', 'project');
+
     modal.classList.add('modal');
     modalContent.classList.add('modal-content');
     modalHeaderDiv.classList.add('modal-header-div');
     closeBtn.classList.add('close-btn');
     modalBodyDiv.classList.add('modal-body-div');
     modalForm.classList.add('modal-form');
+    modalInputs.classList.add('modal-inputs');
     formDiv1.classList.add('form-div-1');
     formDiv2.classList.add('form-div-2');
 
@@ -73,6 +91,7 @@ const createModal = function() {
     projectDiv.classList.add('input-div');
 
     inputTitle.classList.add('input-element');
+    inputTitle.classList.add('input-title');
     inputDate.classList.add('input-element');
     inputDescription.classList.add('input-element');
     inputDescription.classList.add('form-description');
@@ -80,7 +99,7 @@ const createModal = function() {
     inputProject.classList.add('input-element');
     
 
-    modalFooterDiv.classList.add('modal-footer-div');
+    formDiv3.classList.add('form-div-3');
     addBtn.classList.add('add-btn');
     cancelBtn.classList.add('cancel-btn');
     
@@ -112,15 +131,18 @@ const createModal = function() {
     formDiv2.appendChild(dateDiv);
     formDiv2.appendChild(priorityDiv);
     formDiv2.appendChild(projectDiv);
+    formDiv3.appendChild(cancelBtn);
+    formDiv3.appendChild(addBtn);
 
-    modalForm.appendChild(formDiv1);
-    modalForm.appendChild(formDiv2);
+    modalInputs.appendChild(formDiv1);
+    modalInputs.appendChild(formDiv2);
+    modalForm.appendChild(modalInputs);
+    modalForm.appendChild(formDiv3);
     modalBodyDiv.appendChild(modalForm);
 
+
+
     modalContent.appendChild(modalBodyDiv);
-    modalFooterDiv.appendChild(cancelBtn);
-    modalFooterDiv.appendChild(addBtn);
-    modalContent.appendChild(modalFooterDiv)
     modal.appendChild(modalContent);
     content.appendChild(modal);
 }
