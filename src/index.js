@@ -5,13 +5,23 @@ import {createWeek} from './week';
 
 createInbox();
 createModal();
+//addObject();
 
-//Open/Close the Modal
+// Form inputs
+const inputTitle = document.querySelector('.form-title');
+const inputDate = document.querySelector('.form-date');
+const inputDescription = document.querySelector('.form-description');
+const inputPriority = document.querySelector('.form-priority');
+const inputProject = document.querySelector('.form-project');
+
+
+
+// Open/Close the Modal
     const newTask = document.querySelector('.new-task');
     const closeModalBtn = document.querySelector('.close-btn');
     const modal = document.querySelector('.modal');
     const cancelBtn = document.querySelector('.cancel-btn');
-    const inputTitle = document.querySelector('.input-title');
+    
 
     function addTask() {
         modal.style.display = "block";
@@ -21,23 +31,17 @@ createModal();
         modal.style.display = "none";
     }
 
+//Event Listeners for modal form    
 newTask.addEventListener('click', addTask);
-closeModalBtn.addEventListener('click', closeModal)
+closeModalBtn.addEventListener('click', closeModal);
 cancelBtn.addEventListener('click', closeModal);
 
 
-const addBtn = document.querySelector('.add-btn');
 
-const addNewTask = (function() {
-    const _test = "TEST!!!";
-    function myFunc() {
-        console.log(_test);
-    }
-    return {myFunc}
-})();
+
 
 //Click Add Button
-addBtn.addEventListener('click', addNewTask.myFunc);
+const addBtn = document.querySelector('.add-btn');
 addBtn.addEventListener('click', closeModal);
 
 //Sidebar list
@@ -78,7 +82,6 @@ function selectInbox() {
     //createModal();
 }
 
-console.log(inputTitle.parentElement.parentElement.parentElement.parentElement.parentElement);
 
 
 //Open Today's projects
@@ -123,6 +126,17 @@ function selectWeek() {
 
     createWeek();
 }
+
+
+
+addBtn.addEventListener('click', testFunc);
+
+function testFunc() {
+    console.log(inputTitle.value);
+    console.log(inputTitle);
+
+}
+
 
 
 

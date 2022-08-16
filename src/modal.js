@@ -61,7 +61,7 @@ const createModal = function() {
 
     inputTitle.setAttribute('required', '');
     
-    inputTitle.setAttribute('name', 'title1');
+    inputTitle.setAttribute('name', 'title');
     inputDate.setAttribute('name', 'date');
     inputDescription.setAttribute('name', 'description');
     inputPriority.setAttribute('name', 'priority');
@@ -91,12 +91,15 @@ const createModal = function() {
     projectDiv.classList.add('input-div');
 
     inputTitle.classList.add('input-element');
-    inputTitle.classList.add('input-title');
+    inputTitle.classList.add('form-title');
     inputDate.classList.add('input-element');
+    inputDate.classList.add('form-date');
     inputDescription.classList.add('input-element');
     inputDescription.classList.add('form-description');
     inputPriority.classList.add('input-element');
+    inputPriority.classList.add('form-priority');
     inputProject.classList.add('input-element');
+    inputProject.classList.add('form-project');
     
 
     formDiv3.classList.add('form-div-3');
@@ -140,12 +143,27 @@ const createModal = function() {
     modalForm.appendChild(formDiv3);
     modalBodyDiv.appendChild(modalForm);
 
-
-
     modalContent.appendChild(modalBodyDiv);
     modal.appendChild(modalContent);
     content.appendChild(modal);
 }
 
 
-export {createModal}
+// function addObject(title, date, description, priority, project) {
+//    const taskObj =  {
+//        name: this.title,
+//     }
+
+//     console.log(taskObj.name);
+
+   
+
+//     return {taskObj}
+// }
+
+//const myTask = addObject('Dishes', '1/1/2022', 'Do the dishes', 'High', 'Chores');
+
+//console.log(myTask.taskObj);
+
+
+export {createModal};

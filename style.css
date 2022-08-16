@@ -237,3 +237,7 @@ h2 {
     cursor: pointer;
     border: 2px black solid;
 }
+
+.input-element:invalid {
+    border: 2px red solid;
+}
