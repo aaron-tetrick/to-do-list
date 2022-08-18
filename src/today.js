@@ -1,4 +1,5 @@
 function createToday() {
+    const contentTitle = document.getElementById('content-title');
     const content = document.getElementById('content');
     const todayDiv = document.createElement('div');
     const title = document.createElement('h2');
@@ -9,7 +10,7 @@ function createToday() {
     todayDiv.classList.add('today-div');
 
     todayDiv.appendChild(title);
-    content.appendChild(todayDiv);
+    contentTitle.appendChild(todayDiv);
 }
 
 

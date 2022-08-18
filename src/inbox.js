@@ -1,9 +1,10 @@
-const createInbox = function()  {
-    const content = document.getElementById('content');
-    const inboxDiv = document.createElement('div');
-    const title = document.createElement('h2');
-    const newTask = document.createElement('p');
-        
+const contentTitle = document.getElementById('content-title');
+const content = document.getElementById('content');
+const inboxDiv = document.createElement('div');
+const title = document.createElement('h2');
+const newTask = document.createElement('p');
+
+const createInbox = function()  {     
     title.innerText = "Inbox";
     newTask.innerText = "+ New Task";
 
@@ -12,9 +13,16 @@ const createInbox = function()  {
     newTask.classList.add('new-task');
 
     inboxDiv.appendChild(title);
-    inboxDiv.appendChild(newTask);
-    content.appendChild(inboxDiv);
+    content.appendChild(newTask);
+    contentTitle.appendChild(inboxDiv);
 }
 
 
-export {createInbox};
+function removeNewTask() {
+        newTask.remove();
+}
+
+
+
+
+export {createInbox, removeNewTask};

@@ -1,7 +1,8 @@
-import {createModal} from './modal';
-import {createInbox} from './inbox';
-import {createToday} from './today';
-import {createWeek} from './week';
+import { createModal } from './modal';
+import { createInbox, removeNewTask } from './inbox';
+import { createToday } from './today';
+import { createWeek } from './week';
+
 
 createInbox();
 createModal();
@@ -43,6 +44,7 @@ cancelBtn.addEventListener('click', closeModal);
 //Click Add Button
 const addBtn = document.querySelector('.add-btn');
 addBtn.addEventListener('click', closeModal);
+addBtn
 
 //Sidebar list
 const inbox = document.querySelector('.inbox');
@@ -79,7 +81,6 @@ function selectInbox() {
     week.classList.remove('current-page');
 
     createInbox();
-    //createModal();
 }
 
 
@@ -103,6 +104,7 @@ function selectToday() {
     inbox.classList.remove('current-page');
     week.classList.remove('current-page')
     
+    removeNewTask();
     createToday();
 }
 
@@ -124,6 +126,7 @@ function selectWeek() {
     inbox.classList.remove('current-page');
     week.classList.add('current-page')
 
+    removeNewTask();
     createWeek();
 }
 
@@ -137,6 +140,8 @@ function testFunc() {
 
 }
 
+
+console.log(12)
 
 
 
