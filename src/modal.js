@@ -10,7 +10,6 @@ const modalForm = document.createElement('form');
 
 const inputTitle = document.createElement('input');
 const inputDate = document.createElement('input');
-const inputDescription = document.createElement('textarea');
 const inputPriority = document.createElement('select');
 const inputProject = document.createElement('select');
 
@@ -21,13 +20,11 @@ const modalInputs = document.createElement('div');
 
 const labelTitle = document.createElement('label');
 const labelDate = document.createElement('label');
-const labelDescription = document.createElement('label');
 const labelPriority = document.createElement('label');
 const labelProject = document.createElement('label');
 
 const titleDiv = document.createElement('div');
 const dateDiv = document.createElement('div');
-const descriptionDiv = document.createElement('div');
 const priorityDiv = document.createElement('div');
 const projectDiv = document.createElement('div');
 
@@ -47,7 +44,6 @@ const createModal = function() {
     cancelBtn.innerText = "Cancel";
     labelTitle.innerText = "Title:";
     labelDate.innerText = "Date:";
-    labelDescription.innerText = "Description:";
     labelPriority.innerText = "Priority:";
     labelProject.innerText = "Project:"
     optionHigh.innerText = "High";
@@ -63,13 +59,11 @@ const createModal = function() {
     
     inputTitle.setAttribute('name', 'title');
     inputDate.setAttribute('name', 'date');
-    inputDescription.setAttribute('name', 'description');
     inputPriority.setAttribute('name', 'priority');
     inputProject.setAttribute('name', 'project');
 
     labelTitle.setAttribute('for', 'title1');
     labelDate.setAttribute('for', 'date');
-    labelDescription.setAttribute('for', 'description');
     labelPriority.setAttribute('for', 'priority');
     labelProject.setAttribute('for', 'project');
 
@@ -86,7 +80,6 @@ const createModal = function() {
 
     titleDiv.classList.add('input-div');
     dateDiv.classList.add('input-div');
-    descriptionDiv.classList.add('input-div');
     priorityDiv.classList.add('input-div');
     projectDiv.classList.add('input-div');
 
@@ -94,8 +87,6 @@ const createModal = function() {
     inputTitle.classList.add('form-title');
     inputDate.classList.add('input-element');
     inputDate.classList.add('form-date');
-    inputDescription.classList.add('input-element');
-    inputDescription.classList.add('form-description');
     inputPriority.classList.add('input-element');
     inputPriority.classList.add('form-priority');
     inputProject.classList.add('input-element');
@@ -116,9 +107,6 @@ const createModal = function() {
     dateDiv.appendChild(labelDate);
     dateDiv.appendChild(inputDate);
 
-    descriptionDiv.appendChild(labelDescription);
-    descriptionDiv.appendChild(inputDescription);
-
     priorityDiv.appendChild(labelPriority);
     priorityDiv.appendChild(inputPriority);
     inputPriority.appendChild(optionHigh);
@@ -130,9 +118,8 @@ const createModal = function() {
     projectDiv.appendChild(inputProject);
 
     formDiv1.appendChild(titleDiv);
-    formDiv1.appendChild(descriptionDiv);
     formDiv2.appendChild(dateDiv);
-    formDiv2.appendChild(priorityDiv);
+    formDiv1.appendChild(priorityDiv);
     formDiv2.appendChild(projectDiv);
     formDiv3.appendChild(cancelBtn);
     formDiv3.appendChild(addBtn);
@@ -164,7 +151,7 @@ console.log(addObject())
 
 
 
-// function addObject(title, date, description, priority, project) {
+// function addObject(title, date, priority, project) {
 //    const taskObj =  {
 //        name: this.title,
 //     }

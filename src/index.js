@@ -41,10 +41,11 @@ cancelBtn.addEventListener('click', closeModal);
 
 
 
+
+
 //Click Add Button
 const addBtn = document.querySelector('.add-btn');
 addBtn.addEventListener('click', closeModal);
-addBtn
 
 //Sidebar list
 const inbox = document.querySelector('.inbox');
