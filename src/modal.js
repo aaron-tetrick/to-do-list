@@ -138,16 +138,6 @@ const createModal = function() {
 
 
 
-function addObject() {
-    let task = document.createElement('div');
-    task.innerText = "Hello";
-    content.appendChild(task);
-    console.log(task);
-    return task
-}
-
-console.log(addObject())
-
 
 
 

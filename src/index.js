@@ -131,43 +131,17 @@ function selectWeek() {
     createWeek();
 }
 
-
-
-addBtn.addEventListener('click', testFunc);
-
-function testFunc() {
-    console.log(inputTitle.value);
-    console.log(inputTitle);
-
+class NewTask {
+    constructor(title, date, priority, project) {
+        this.title = title;
+        this.date = date;
+        this.priority = priority;
+        this.project = project;
+    }
 }
 
-
-console.log(12)
-
-
-
-
-
-
-// const operateModal = (function() {
-//     const newTask = document.querySelector('.new-task');
-//     const closeModalBtn = document.querySelector('.close-btn');
-//     const _modal = document.querySelector('.modal');
-//     const cancelBtn = document.querySelector('.cancel-btn');
-
-//     function addTask() {
-//         _modal.style.display = "block";
-//     }
-    
-//     function closeModal() {
-//         _modal.style.display = "none";
-//     }
-    
-//     return {addTask, closeModal, closeModalBtn, cancelBtn, newTask}
-// })();
-
-
-// console.log(operateModal.newTask)
-//  operateModal.newTask.addEventListener('click', operateModal.addTask);
-//  operateModal.closeModalBtn.addEventListener('click', operateModal.closeModal)
-//  operateModal.cancelBtn.addEventListener('click', operateModal.closeModal);
+class UI {
+    static displayTask() {
+        
+    }
+}
