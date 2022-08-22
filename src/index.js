@@ -140,8 +140,50 @@ class NewTask {
     }
 }
 
+// UI Class: Handle UI Tasks
 class UI {
-    static displayTask() {
-        
+    static displayTasks() { 
+        const StoredTasks = [
+            {
+                title: 'Dishes',
+                date: '8/21/22',
+                priority: 'Medium',
+                project: 'Household Chores'
+            },
+            {
+                title: 'Visit Bank',
+                date: '8/24/22',
+                priority: 'High',
+                project: 'Errands'
+            }
+        ];
+
+        const tasks = StoredTasks;
+
+        tasks.forEach(task => UI.addTaskToList(task));
+    }
+
+    static addTaskToList(task) {
+        const list = document.querySelector('#to-do-list');
+
+        const row = document.createElement('tr');
+
+        row.innerHTML = `
+            <td class='tdl-header delete'><input type="radio"></td>
+            <td class='tdl-header'>${task.title}</td>
+            <td class='tdl-header'>${task.date}</td>
+            <td class='tdl-header'>${task.priority}</td>
+            <td class='tdl-header'>${task.project}</td>
+        `;
+
+
+        list.appendChild(row);
     }
 }
+
+// Event: Display Books
+document.addEventListener('DOMContentLoaded', UI.displayTasks);
+
+// Event: Add a Task
+
+// Event: Remove a Task
