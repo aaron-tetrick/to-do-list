@@ -3,7 +3,6 @@ import { createInbox, removeNewTask } from './inbox';
 import { createToday } from './today';
 import { createWeek } from './week';
 
-
 createInbox();
 createModal();
 //addObject();
@@ -11,7 +10,6 @@ createModal();
 // Form inputs
 const inputTitle = document.querySelector('.form-title');
 const inputDate = document.querySelector('.form-date');
-const inputDescription = document.querySelector('.form-description');
 const inputPriority = document.querySelector('.form-priority');
 const inputProject = document.querySelector('.form-project');
 
@@ -36,8 +34,6 @@ const inputProject = document.querySelector('.form-project');
 newTask.addEventListener('click', addTask);
 closeModalBtn.addEventListener('click', closeModal);
 cancelBtn.addEventListener('click', closeModal);
-
-
 
 
 
@@ -131,7 +127,7 @@ function selectWeek() {
     createWeek();
 }
 
-class NewTask {
+class Task {
     constructor(title, date, priority, project) {
         this.title = title;
         this.date = date;
@@ -185,5 +181,22 @@ class UI {
 document.addEventListener('DOMContentLoaded', UI.displayTasks);
 
 // Event: Add a Task
+
+document.querySelector('.modal-form').addEventListener('submit', (e) => {
+    // Prevent Default
+    e.preventDefault();
+
+    // Get form values
+    const title = document.querySelector('.form-title').value
+    const date = document.querySelector('.form-date').value
+    const priority = document.querySelector('.form-priority').value;
+    const project = document.querySelector('.form-project').value;
+
+    // Instantiate Task
+    const task = new Task(title, date, priority, project)
+
+    console.log(task);
+    
+});
 
 // Event: Remove a Task

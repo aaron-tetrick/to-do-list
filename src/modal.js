@@ -33,14 +33,13 @@ const optionMed = document.createElement('option');
 const optionLow = document.createElement('option');
 
 const formDiv3 = document.createElement('div');
-const addBtn = document.createElement('button');
+const addBtn = document.createElement('input');
 const cancelBtn = document.createElement('button');
 
 
 const createModal = function() {
     closeBtn.innerHTML = "&times;";
     modalHeader.innerText = 'Add New Task';
-    addBtn.innerText = 'Add Task';
     cancelBtn.innerText = "Cancel";
     labelTitle.innerText = "Title:";
     labelDate.innerText = "Date:";
@@ -66,6 +65,8 @@ const createModal = function() {
     labelDate.setAttribute('for', 'date');
     labelPriority.setAttribute('for', 'priority');
     labelProject.setAttribute('for', 'project');
+    addBtn.setAttribute('type', 'submit');
+    addBtn.setAttribute('value', 'Add Task');
 
     modal.classList.add('modal');
     modalContent.classList.add('modal-content');
