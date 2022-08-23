@@ -50,9 +50,9 @@ const createModal = function() {
     optionLow.innerText = "Low";
 
     inputPriority.setAttribute('name', 'priority');
-    optionHigh.setAttribute('value', 'high');
-    optionMed.setAttribute('value', 'medium');
-    optionLow.setAttribute('value', 'low');
+    optionHigh.setAttribute('value', 'High');
+    optionMed.setAttribute('value', 'Medium');
+    optionLow.setAttribute('value', 'Low');
 
     //inputTitle.setAttribute('required', '');
     

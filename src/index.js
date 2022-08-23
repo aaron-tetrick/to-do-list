@@ -165,7 +165,7 @@ class UI {
         const row = document.createElement('tr');
 
         row.innerHTML = `
-            <td class='tdl-header delete'><input type="radio"></td>
+            <td class='tdl-header delete'><input type="checkbox"></td>
             <td class='tdl-header'>${task.title}</td>
             <td class='tdl-header'>${task.date}</td>
             <td class='tdl-header'>${task.priority}</td>
@@ -175,14 +175,21 @@ class UI {
 
         list.appendChild(row);
     }
+
+    static clearFields() {
+        document.querySelector('.form-title').value = '';
+        document.querySelector('.form-date').value = '';
+        document.querySelector('.form-priority').value = '';
+        document.querySelector('.form-project').value = '';
+    }
 }
 
-// Event: Display Books
+// Event: Display Tasks
 document.addEventListener('DOMContentLoaded', UI.displayTasks);
 
 // Event: Add a Task
-
 document.querySelector('.modal-form').addEventListener('submit', (e) => {
+    
     // Prevent Default
     e.preventDefault();
 
@@ -196,7 +203,13 @@ document.querySelector('.modal-form').addEventListener('submit', (e) => {
     const task = new Task(title, date, priority, project)
 
     console.log(task);
-    
+
+    // Add Task to UI
+    UI.addTaskToList(task);
+
+    // Clear Fields
+    UI.clearFields();
+
 });
 
 // Event: Remove a Task
