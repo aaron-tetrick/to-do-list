@@ -89,6 +89,11 @@ h2 {
     justify-content: flex-start;
 }
 
+.title {
+    font-size: 3rem;
+}
+
+
 #table {
     width: fit-content;
     display: flex;
@@ -117,9 +122,14 @@ h2 {
 /* CHECKBOX STYLING */
 
 .delete {
-    max-width: min-content;
     min-width: min-content;
+    min-height: min-content;
     padding: 15px;
+}
+
+.delete-header {
+    min-width: 54.19px;
+    height: min-content;
 }
 
 .checkbox-container input[type='checkbox'] {
@@ -138,10 +148,6 @@ h2 {
     height: 1em;
     border-radius: 50%;
     border: .05em solid black;
-}
-
-.title {
-    font-size: 3rem;
 }
 
 .new-task {

@@ -165,10 +165,11 @@ class UI {
 
         row.innerHTML = `
             <td class='tdl-header delete'>
-            <div class='checkbox-container'>
-            <input type='checkbox' class='completed' id=${task.title.replace(' ', '-')}>
-            <label for=${task.title.replace(' ', '-')}></td>
-            </div>
+                <div class='checkbox-container'>
+                    <input type='checkbox' class='completed' id=${task.title.replace(' ', '-')}>
+                    <label for=${task.title.replace(' ', '-')}>
+                </div>
+            </td>
             <td class='tdl-header'>${task.title}</td>
             <td class='tdl-header'>${task.date}</td>
             <td class='tdl-header'>${task.priority}</td>
