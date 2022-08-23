@@ -165,9 +165,9 @@ class UI {
 
         row.innerHTML = `
             <td class='tdl-header delete'>
-            <div class="checkbox-container">
-            <input type="checkbox" id=${task.title}>
-            <label for=${task.title}></td>
+            <div class='checkbox-container'>
+            <input type='checkbox' class='completed' id=${task.title.replace(' ', '-')}>
+            <label for=${task.title.replace(' ', '-')}></td>
             </div>
             <td class='tdl-header'>${task.title}</td>
             <td class='tdl-header'>${task.date}</td>
@@ -175,8 +175,13 @@ class UI {
             <td class='tdl-header'>${task.project}</td>
         `;
 
-
         list.appendChild(row);
+    }
+
+    static deleteTask(el) {
+        if(el.classList.contains('completed')) {
+          el.parentElement.parentElement.parentElement.remove(); 
+        }
     }
 
     static clearFields() {
@@ -216,3 +221,10 @@ document.querySelector('.modal-form').addEventListener('submit', (e) => {
 });
 
 // Event: Remove a Task
+
+document.querySelector('#to-do-list').addEventListener('click', 
+(e) => {
+    UI.deleteTask(e.target);
+    console.log(e.target)
+
+})
