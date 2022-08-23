@@ -6,7 +6,6 @@
 }
 
 /* HEADER STYLINGS */
-
 header {
     background-color: black;
     height: 10vh;
@@ -29,7 +28,6 @@ main {
 }
 
 /* SIDEBAR STYLINGS */
-
 #sidebar {
     background-color: gray;
 }
@@ -108,10 +106,6 @@ h2 {
     background-color: white;
 }
 
-#completed-btn {
-    opacity: 0;
-}
-
 .tdl-header {
     font-size: 22px;
     text-align: center;
@@ -120,9 +114,30 @@ h2 {
     min-width: 175px;
 }
 
+/* CHECKBOX STYLING */
+
 .delete {
-    max-width: fit-content;
-    min-width: fit-content;
+    max-width: min-content;
+    min-width: min-content;
+    padding: 15px;
+}
+
+.checkbox-container input[type='checkbox'] {
+    cursor: pointer;
+    opacity: 0;
+    position: absolute;
+}
+
+.checkbox-container label {
+    display: flex;
+}
+
+.checkbox-container label::before {
+    content: '';
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
+    border: .05em solid black;
 }
 
 .title {
@@ -280,4 +295,36 @@ h2 {
 
 .input-element:invalid {
     border: 2px red solid;
+}
+
+/* CHECKBOX PSEUDO ELEMENTS */
+.checkbox-container label:hover::before,
+.checkbox-container input[type='checkbox']:hover + label::before {
+    background-color: lightgray;
+    opacity: 1;
+    transition: .2s;
+}
+
+.checkbox-container input[type='checkbox']:focus + label::before {
+    box-shadow: 0 0 10px gray;
+}
+
+.checkbox-container input[type='checkbox']:disabled + label,
+.checkbox-container input[type='checkbox']:disabled {
+    color: #aaa;
+    cursor: default;
+}
+
+.checkbox-container input[type='checkbox']:checked + label::before {
+    content: '\002714';
+    background-color: gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.checkbox-container input[type='checkbox']:disabled + label::before {
+    background-color: #ccc;
+    border-color: #999;
 }

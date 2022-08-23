@@ -14,7 +14,6 @@ const inputPriority = document.querySelector('.form-priority');
 const inputProject = document.querySelector('.form-project');
 
 
-
 // Open/Close the Modal
     const newTask = document.querySelector('.new-task');
     const closeModalBtn = document.querySelector('.close-btn');
@@ -165,7 +164,11 @@ class UI {
         const row = document.createElement('tr');
 
         row.innerHTML = `
-            <td class='tdl-header delete'><input type="checkbox"></td>
+            <td class='tdl-header delete'>
+            <div class="checkbox-container">
+            <input type="checkbox" id=${task.title}>
+            <label for=${task.title}></td>
+            </div>
             <td class='tdl-header'>${task.title}</td>
             <td class='tdl-header'>${task.date}</td>
             <td class='tdl-header'>${task.priority}</td>
