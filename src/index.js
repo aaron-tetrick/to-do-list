@@ -41,7 +41,7 @@ cancelBtn.addEventListener('click', closeModal);
 
 //Click Add Button
 const addBtn = document.querySelector('.add-btn');
-addBtn.addEventListener('click', closeModal);
+// addBtn.addEventListener('click', closeModal);
 
 //Sidebar list
 const inbox = document.querySelector('.inbox');
@@ -186,6 +186,18 @@ class UI {
         }
     }
 
+    static showAlert() {
+        const div = document.createElement('div');
+        div.className = 'alert';
+        div.appendChild(document.createTextNode('Please fill in all fields'));
+        const container = document.querySelector('.modal-body-div');
+        const form = document.querySelector('.modal-form');
+        container.insertBefore(div, form);
+
+        // Vanish in 3 seconds
+        setTimeout(() => document.querySelector('.alert').remove(), 1500);
+    }
+
     static clearFields() {
         document.querySelector('.form-title').value = '';
         document.querySelector('.form-date').value = '';
@@ -200,9 +212,9 @@ document.addEventListener('DOMContentLoaded', UI.displayTasks);
 // Event: Add a Task
 document.querySelector('.modal-form').addEventListener('submit', (e) => {
   
-       
     // Prevent Default
     e.preventDefault();
+
 
     // Get form values
     const title = document.querySelector('.form-title').value
@@ -210,15 +222,25 @@ document.querySelector('.modal-form').addEventListener('submit', (e) => {
     const priority = document.querySelector('.form-priority').value;
     const project = document.querySelector('.form-project').value;
 
-    // Instantiate Task
-    const task = new Task(title, date, priority, project)
+    // Validate
+    if(title === '' || date === '' || priority === '' || project === '') {
+        UI.showAlert();
+    } else {
+        // Instantiate Task
+        const task = new Task(title, date, priority, project)
 
-    // Add Task to UI
-    UI.addTaskToList(task);
+        // Add Task to UI
+        UI.addTaskToList(task);
     
+        // Clear Fields
+        UI.clearFields();
 
-    // Clear Fields
-    UI.clearFields();
+        // Close Modal
+        closeModal();
+  }
+
+
+
 });
 
 // Event: Remove a Task

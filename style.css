@@ -93,7 +93,6 @@ h2 {
     font-size: 3rem;
 }
 
-
 #table {
     width: min-content;
     max-width: fit-content;
@@ -105,11 +104,11 @@ h2 {
     table-layout: fixed;
     margin-top: 25px;
     border-radius: 4px;
-    border: 3px black solid;
     box-shadow: 0px 3px 10px 1px gray;
     max-width: 80vw;
     overflow: auto;
     background-color: white;
+    padding: 25px 5px;
 }
 
 .tdl-header {
@@ -164,7 +163,6 @@ h2 {
 }
 
 /* MODAL STYLINGS */
-
 .modal {
     display: none;
     position: fixed;
@@ -212,6 +210,14 @@ h2 {
 
 .modal-body-div {
     padding: 20px;
+}
+
+.alert {
+    background-color: rgb(255, 189, 189);
+    padding: 0.5rem;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 1.25rem;
 }
 
 /* FORM ELEMENTS */
