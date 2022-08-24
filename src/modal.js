@@ -28,28 +28,30 @@ const dateDiv = document.createElement('div');
 const priorityDiv = document.createElement('div');
 const projectDiv = document.createElement('div');
 
+const optionInbox = document.createElement('option');
 const optionHigh = document.createElement('option');
 const optionMed = document.createElement('option');
 const optionLow = document.createElement('option');
 
 const formDiv3 = document.createElement('div');
 const addBtn = document.createElement('input');
-const cancelBtn = document.createElement('button');
+const cancelBtn = document.createElement('input');
 
 
 const createModal = function() {
     closeBtn.innerHTML = "&times;";
     modalHeader.innerText = 'Add New Task';
-    cancelBtn.innerText = "Cancel";
     labelTitle.innerText = "Title:";
     labelDate.innerText = "Date:";
     labelPriority.innerText = "Priority:";
     labelProject.innerText = "Project:"
+    optionInbox.innerText = "Inbox";
     optionHigh.innerText = "High";
     optionMed.innerText = "Medium";
     optionLow.innerText = "Low";
 
     inputPriority.setAttribute('name', 'priority');
+    optionInbox.setAttribute('value', 'Inbox');
     optionHigh.setAttribute('value', 'High');
     optionMed.setAttribute('value', 'Medium');
     optionLow.setAttribute('value', 'Low');
@@ -65,6 +67,8 @@ const createModal = function() {
     labelDate.setAttribute('for', 'date');
     labelPriority.setAttribute('for', 'priority');
     labelProject.setAttribute('for', 'project');
+    cancelBtn.setAttribute('type', 'button')
+    cancelBtn.setAttribute('value', 'Cancel')
     addBtn.setAttribute('type', 'submit');
     addBtn.setAttribute('value', 'Add Task');
 
@@ -114,7 +118,7 @@ const createModal = function() {
     inputPriority.appendChild(optionMed);
     inputPriority.appendChild(optionLow);
 
-
+    inputProject.appendChild(optionInbox);
     projectDiv.appendChild(labelProject);
     projectDiv.appendChild(inputProject);
 

@@ -27,6 +27,7 @@ const inputProject = document.querySelector('.form-project');
     
     function closeModal() {
         modal.style.display = "none";
+        UI.clearFields();
     }
 
 //Event Listeners for modal form    
@@ -198,7 +199,8 @@ document.addEventListener('DOMContentLoaded', UI.displayTasks);
 
 // Event: Add a Task
 document.querySelector('.modal-form').addEventListener('submit', (e) => {
-    
+  
+       
     // Prevent Default
     e.preventDefault();
 
@@ -213,10 +215,10 @@ document.querySelector('.modal-form').addEventListener('submit', (e) => {
 
     // Add Task to UI
     UI.addTaskToList(task);
+    
 
     // Clear Fields
     UI.clearFields();
-
 });
 
 // Event: Remove a Task
