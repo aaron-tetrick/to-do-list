@@ -181,7 +181,7 @@ class UI {
 
     static deleteTask(el) {
         if(el.classList.contains('completed')) {
-          el.parentElement.parentElement.parentElement.remove(); 
+          el.parentElement.parentElement.parentElement.remove();
         }
     }
 
@@ -210,8 +210,6 @@ document.querySelector('.modal-form').addEventListener('submit', (e) => {
 
     // Instantiate Task
     const task = new Task(title, date, priority, project)
-
-    console.log(task);
 
     // Add Task to UI
     UI.addTaskToList(task);

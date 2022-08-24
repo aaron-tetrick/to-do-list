@@ -95,7 +95,8 @@ h2 {
 
 
 #table {
-    width: fit-content;
+    width: min-content;
+    max-width: fit-content;
     display: flex;
     justify-content: center;
     align-items: stretch;
@@ -115,8 +116,9 @@ h2 {
     font-size: 22px;
     text-align: center;
     padding: 10px 20px;
-    max-width: 500px;
-    min-width: 175px;
+    max-width: 225px;
+    min-width: 225px;
+    overflow-wrap: break-word;
 }
 
 /* CHECKBOX STYLING */
@@ -307,6 +309,7 @@ h2 {
 .checkbox-container label:hover::before,
 .checkbox-container input[type='checkbox']:hover + label::before {
     background-color: lightgray;
+    cursor: pointer;
     opacity: 1;
     transition: .2s;
 }
