@@ -37,6 +37,9 @@ h2 {
     padding: 15px;
     color: black;
     font-size: 2rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .sidebar-list-div {
@@ -54,6 +57,14 @@ h2 {
 
 .sidebar-list li {
     padding: 8px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.icons {
+    width: 30px;
+    margin: 5px;
 }
 
 .projects-div {
@@ -64,16 +75,19 @@ h2 {
 
 }
 
+#add-project {
+
+}
+
 .projects-list {
     list-style: none;
     font-size: 1.25rem;
-    padding: 15px;
+    padding: 0px;
 }
 
 .projects-list li {
     padding: 5px;
-    border: 1px black solid;
-    font-size: 1.75rem;
+    font-size: 1.5rem;
 }
 
 /* MAIN CONTENT */
@@ -299,12 +313,20 @@ h2 {
     cursor: pointer;
 }
 
-.new-task:hover,
+
 .inbox:hover,
 .today:hover,
-.week:hover {
+.week:hover,
+#add-project:hover {
     cursor: pointer;
-    border: 2px black solid;
+    filter: invert(98%) sepia(2%) saturate(15%) hue-rotate(62deg) brightness(104%) contrast(100%);
+    transform: scale(1.1);
+    transition: 0.2s;
+}
+
+.new-task:hover {
+    color: gray;
+    cursor: pointer;
 }
 
 .input-element:invalid {

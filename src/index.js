@@ -127,6 +127,14 @@ function selectWeek() {
     createWeek();
 }
 
+// Project Class: Represents a Project
+class Project {
+    constructor(title) {
+        this.title = title
+    }
+}
+
+// Task Class: Represents a Task
 class Task {
     constructor(title, date, priority, project) {
         this.title = title;
