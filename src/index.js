@@ -142,7 +142,7 @@ class Task {
         this.priority = priority;
         this.project = project;
     }
-}
+} 
 
 // UI Class: Handle UI Tasks
 class UI {
@@ -212,7 +212,41 @@ class UI {
         document.querySelector('.form-priority').value = '';
         document.querySelector('.form-project').value = '';
     }
+
+    // Project UI Methods
+    static displayProjects() { 
+        const StoredProjects = [
+            {
+                title: 'Chores'
+            },
+            {
+                title: 'Errands',
+            }
+        ];
+
+        const projects = StoredProjects;
+
+        projects.forEach(project => UI.addProjectToList(project));
+    }
+    
+    static addProjectToList(project) {
+        const projectsList = document.querySelector('.projects-list');
+        console.log(5);
+
+        const newProject = document.createElement('li');
+        newProject.className = 'project-list-item';
+        const addProject = document.querySelector('#add-project')
+
+        newProject.innerHTML = `${project.title}`;
+
+        projectsList.insertBefore(newProject, addProject);
+    }
 }
+
+// Event: Display Projects
+document.addEventListener('DOMContentLoaded', UI.displayProjects);
+
+// Event: Add a Project
 
 // Event: Display Tasks
 document.addEventListener('DOMContentLoaded', UI.displayTasks);
