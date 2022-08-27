@@ -247,6 +247,30 @@ class UI {
 document.addEventListener('DOMContentLoaded', UI.displayProjects);
 
 // Event: Add a Project
+document.querySelector('#add-project').addEventListener('click', (e) => {
+    // Vanish New Project Button
+    const newProjectBtn = document.querySelector('#add-project');
+    newProjectBtn.style.display = 'none';
+
+    const projectsList = document.querySelector('.projects-list')
+    const projectForm = document.createElement('div');
+
+    projectForm.innerHTML = `
+    <form>
+    <input name='project-entry' id="project-entry" type="text">
+    <label for="project-entry"></label>
+        <div id="project-btn-div">
+            <button id="add-project-btn">Add</button>
+            <button id="cancel-project-btn">Cancel</button>
+        </div>
+    </form>
+    `;
+
+    projectsList.insertBefore(projectForm, newProjectBtn);
+
+    
+
+});
 
 // Event: Display Tasks
 document.addEventListener('DOMContentLoaded', UI.displayTasks);
