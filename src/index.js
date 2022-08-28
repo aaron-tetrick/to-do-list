@@ -146,6 +146,7 @@ class Task {
 
 // UI Class: Handle UI Tasks
 class UI {
+    // Task UI Methods
     static displayTasks() { 
         const StoredTasks = [
             {
@@ -239,7 +240,20 @@ class UI {
 
         projectsList.append(newProject);
     }
-}
+
+    // Hide New Project and Show Project Input Form
+    static hideInputForm() {
+        const newProject = document.querySelector('#add-project');
+        const projectForm = document.querySelector('#project-form')
+        newProject.style.display = 'block';
+        projectForm.style.display = 'none';
+    }
+
+    // Clear Project Input
+    static clearProjectInput() {
+    document.querySelector('#project-entry').value = '';
+    }
+};
 
 // Event: Display Projects
 document.addEventListener('DOMContentLoaded', UI.displayProjects);
@@ -251,40 +265,32 @@ document.querySelector('#add-project').addEventListener('click', (e) => {
     const projectForm = document.querySelector('#project-form');
     newProjectBtn.style.display = 'none';
     projectForm.style.display = 'block';
-
-});
-
-   // Event: Add a Project
-   document.querySelector('#add-project-btn').addEventListener('click', (e) => {
-      // Prevent Default
-      e.preventDefault();
-    
-    const entry = document.querySelector('#project-entry');
-    const projectsListDiv = document.querySelector('.projects-list');
-    const newProjectBtn = document.querySelector('#add-project');
-    const projectForm = document.querySelector('#project-form');
-
-    const newEntry = document.createElement('li');
-    newEntry.className = 'project-list-item';
-    newEntry.innerHTML = `${entry.value}`;
-
-    projectsListDiv.appendChild(newEntry);
-
-    newProjectBtn.style.display = 'block';
-    projectForm.style.display = 'none';
-
-
-
-    console.log(entry.value);
-    console.log(projectsListDiv);
-
-  
-    
 })
 
+// Event: Add a Project
+document.querySelector('#add-project-btn').addEventListener('click', (e) => {
+      // Prevent Default
+      e.preventDefault();
 
+    // Get project title value
+    const title = document.querySelector('#project-entry').value;
+    if (title === '') {
+        alert('Please enter a value');
 
+    } else {
+    // Instantiate Project
+    const project = new Project(title);
 
+    // Add Project to List
+    UI.addProjectToList(project);
+
+    // Hide input form
+    UI.hideInputForm();
+
+    // Clear Project fields
+    UI.clearProjectInput();
+    }
+})
 
 // Event: Display Tasks
 document.addEventListener('DOMContentLoaded', UI.displayTasks);
@@ -318,9 +324,6 @@ document.querySelector('.modal-form').addEventListener('submit', (e) => {
         // Close Modal
         closeModal();
   }
-
-
-
 });
 
 // Event: Remove a Task
