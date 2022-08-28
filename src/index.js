@@ -231,46 +231,60 @@ class UI {
     
     static addProjectToList(project) {
         const projectsList = document.querySelector('.projects-list');
-        console.log(5);
 
         const newProject = document.createElement('li');
         newProject.className = 'project-list-item';
-        const addProject = document.querySelector('#add-project')
 
         newProject.innerHTML = `${project.title}`;
 
-        projectsList.insertBefore(newProject, addProject);
+        projectsList.append(newProject);
     }
 }
 
 // Event: Display Projects
 document.addEventListener('DOMContentLoaded', UI.displayProjects);
 
-// Event: Add a Project
+// Event: Add Project Input
 document.querySelector('#add-project').addEventListener('click', (e) => {
-    // Vanish New Project Button
+    // Vanish New Project Button and display Project Form
     const newProjectBtn = document.querySelector('#add-project');
+    const projectForm = document.querySelector('#project-form');
     newProjectBtn.style.display = 'none';
-
-    const projectsList = document.querySelector('.projects-list')
-    const projectForm = document.createElement('div');
-
-    projectForm.innerHTML = `
-    <form>
-    <input name='project-entry' id="project-entry" type="text">
-    <label for="project-entry"></label>
-        <div id="project-btn-div">
-            <button id="add-project-btn">Add</button>
-            <button id="cancel-project-btn">Cancel</button>
-        </div>
-    </form>
-    `;
-
-    projectsList.insertBefore(projectForm, newProjectBtn);
-
-    
+    projectForm.style.display = 'block';
 
 });
+
+   // Event: Add a Project
+   document.querySelector('#add-project-btn').addEventListener('click', (e) => {
+      // Prevent Default
+      e.preventDefault();
+    
+    const entry = document.querySelector('#project-entry');
+    const projectsListDiv = document.querySelector('.projects-list');
+    const newProjectBtn = document.querySelector('#add-project');
+    const projectForm = document.querySelector('#project-form');
+
+    const newEntry = document.createElement('li');
+    newEntry.className = 'project-list-item';
+    newEntry.innerHTML = `${entry.value}`;
+
+    projectsListDiv.appendChild(newEntry);
+
+    newProjectBtn.style.display = 'block';
+    projectForm.style.display = 'none';
+
+
+
+    console.log(entry.value);
+    console.log(projectsListDiv);
+
+  
+    
+})
+
+
+
+
 
 // Event: Display Tasks
 document.addEventListener('DOMContentLoaded', UI.displayTasks);
