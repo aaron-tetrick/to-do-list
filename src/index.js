@@ -292,6 +292,18 @@ document.querySelector('#add-project-btn').addEventListener('click', (e) => {
     }
 })
 
+// Cancel adding a project entry
+document.querySelector('#cancel-project-btn').addEventListener('click', (e) => {
+  // Prevent Default
+  e.preventDefault();
+
+  // Hide input form
+  UI.hideInputForm();
+
+  // Clear Project fields
+  UI.clearProjectInput();
+})
+
 // Event: Display Tasks
 document.addEventListener('DOMContentLoaded', UI.displayTasks);
 
