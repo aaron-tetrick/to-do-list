@@ -183,7 +183,6 @@ class UI {
             <td class='tdl-header'>${task.title}</td>
             <td class='tdl-header'>${task.date}</td>
             <td class='tdl-header'>${task.priority}</td>
-            <td class='tdl-header'>${task.project}</td>
         `;
 
         list.appendChild(row);
@@ -353,6 +352,8 @@ document.querySelector('.modal-form').addEventListener('submit', (e) => {
 
         // Close Modal
         closeModal();
+
+        console.log(task);
   }
 });
 
