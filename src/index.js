@@ -260,13 +260,18 @@ class UI {
     }
 
     // Delete a Project from Sidebar
-    static deleteProject() {
-        const project = document.querySelector() 
+    static deleteProject(el) {
+         console.log(el.parentElement);
+         if(el.classList.contains('close-project-btn')) {
+            el.parentElement.remove();
+         }
         }
 };
 
 // Event: Delete project
-    document.querySelector()
+    document.querySelector('.projects-list').addEventListener('click', (e) => {
+        UI.deleteProject(e.target);
+    });
 
 // Event: Display Projects
 document.addEventListener('DOMContentLoaded', UI.displayProjects);
@@ -356,6 +361,4 @@ document.querySelector('.modal-form').addEventListener('submit', (e) => {
 document.querySelector('#to-do-list').addEventListener('click', 
 (e) => {
     UI.deleteTask(e.target);
-    console.log(e.target)
-
 })
