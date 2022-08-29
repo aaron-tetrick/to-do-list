@@ -236,9 +236,14 @@ class UI {
         const newProject = document.createElement('li');
         newProject.className = 'project-list-item';
 
-        newProject.innerHTML = `${project.title}`;
+        newProject.innerHTML = `
+        <div class="list-item-div">
+        <div>${project.title}</div>
+        <div class="close-project-btn">x</div>
+        </div>`;
 
         projectsList.append(newProject);
+        console.log(newProject);
     }
 
     // Hide New Project and Show Project Input Form
@@ -253,7 +258,15 @@ class UI {
     static clearProjectInput() {
     document.querySelector('#project-entry').value = '';
     }
+
+    // Delete a Project from Sidebar
+    static deleteProject() {
+        const project = document.querySelector() 
+        }
 };
+
+// Event: Delete project
+    document.querySelector()
 
 // Event: Display Projects
 document.addEventListener('DOMContentLoaded', UI.displayProjects);
