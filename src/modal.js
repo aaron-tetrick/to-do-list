@@ -55,8 +55,6 @@ const createModal = function() {
     optionHigh.setAttribute('value', 'High');
     optionMed.setAttribute('value', 'Medium');
     optionLow.setAttribute('value', 'Low');
-
-    //inputTitle.setAttribute('required', '');
     
     inputTitle.setAttribute('name', 'title');
     inputDate.setAttribute('name', 'date');
@@ -139,28 +137,6 @@ const createModal = function() {
     modal.appendChild(modalContent);
     content.appendChild(modal);
 }
-
-
-
-
-
-
-
-// function addObject(title, date, priority, project) {
-//    const taskObj =  {
-//        name: this.title,
-//     }
-
-//     console.log(taskObj.name);
-
-   
-
-//     return {taskObj}
-// }
-
-//const myTask = addObject('Dishes', '1/1/2022', 'Do the dishes', 'High', 'Chores');
-
-//console.log(myTask.taskObj);
 
 
 export {createModal};

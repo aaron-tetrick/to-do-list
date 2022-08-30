@@ -166,6 +166,13 @@ class UI {
         const tasks = StoredTasks;
 
         tasks.forEach(task => UI.addTaskToList(task));
+        tasks.forEach(task => {
+            if(task.priority === 'High') {
+                console.log(task);
+                
+            }
+            console.log(task.priority);
+        })
     }
 
     static addTaskToList(task) {
@@ -180,12 +187,26 @@ class UI {
                     <label for=${task.title.replace(' ', '-')}>
                 </div>
             </td>
-            <td class='tdl-header'>${task.title}</td>
-            <td class='tdl-header'>${task.date}</td>
-            <td class='tdl-header'>${task.priority}</td>
+            <td class='tdl-header title'>${task.title}</td>
+            <td class='tdl-header date'>${task.date}</td>
+            <td class='tdl-header priority'>${task.priority}</td>
         `;
+        
+        UI.showPriority(row.children[3])
 
         list.appendChild(row);
+    }
+
+    static showPriority(el) {
+        if (el.innerText === 'High') {
+            el.classList.add('high');
+        }
+        else if (el.innerText === 'Medium') {
+            el.classList.add('med');
+        } 
+        else if (el.innerText === 'Low') {
+            el.classList.add('low');
+        }
     }
 
     static deleteTask(el) {
@@ -242,7 +263,6 @@ class UI {
         </div>`;
 
         projectsList.append(newProject);
-        console.log(newProject);
     }
 
     // Hide New Project and Show Project Input Form

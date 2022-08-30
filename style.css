@@ -109,7 +109,7 @@ h2 {
     height: 20px;
     font-size: 22px;
     font-weight: bold;
-    color: rgb(216, 216, 216);
+    color: black
 }
 
 #project-form {
@@ -192,21 +192,39 @@ h2 {
     box-shadow: 0px 3px 10px 1px gray;
     max-width: 80vw;
     overflow: auto;
-    background-color: white;
-    padding: 25px 5px;
+    background-color: rgb(241, 241, 241);
+    padding: 25px 45px;
 }
 
 .tdl-header {
     font-size: 22px;
     text-align: center;
-    padding: 10px 20px;
+    padding: 10px 0px;
     max-width: 225px;
     min-width: 225px;
     overflow-wrap: break-word;
 }
 
-/* CHECKBOX STYLING */
+.high {
+    color: rgb(180, 0, 0);
+}
 
+.med {
+    color: rgb(160, 104, 0);
+}
+
+.low {
+    color: green;
+}
+
+.high::before,
+.med::before,
+.low::before {
+    content: '\25CF';
+    margin-right: 3px;
+}
+
+/* CHECKBOX STYLING */
 .delete {
     min-width: min-content;
     min-height: min-content;
@@ -375,22 +393,28 @@ h2 {
 }
 
 /*PSEUDO ELEMENTS/CLASSES*/
-.add-btn:hover, .cancel-btn:hover {
+.add-btn:hover, .cancel-btn:hover,
+.high:hover,
+.med.med:hover,
+.low:hover {
     opacity: 1;
     transition: 0.3s;
     text-decoration: none;
     cursor: pointer;
 }
 
-
 .inbox:hover,
 .today:hover,
 .week:hover,
-#add-project:hover {
+#add-project:hover,
+.project-list-item:hover {
     cursor: pointer;
     filter: invert(98%) sepia(2%) saturate(15%) hue-rotate(62deg) brightness(104%) contrast(100%);
-    transform: scale(1.1);
+    transform: scale(1);
     transition: 0.2s;
+}
+#add-project:hover {
+    transform: scale(1.1);
 }
 
 .new-task:hover {
@@ -403,6 +427,7 @@ h2 {
 }
 
 /* CHECKBOX PSEUDO ELEMENTS */
+
 .checkbox-container label:hover::before,
 .checkbox-container input[type='checkbox']:hover + label::before {
     background-color: lightgray;
