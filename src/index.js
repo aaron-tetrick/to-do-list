@@ -191,7 +191,7 @@ class UI {
             <td class='tdl-header date'>${task.date}</td>
             <td class='tdl-header priority'>${task.priority}</td>
         `;
-        
+
         UI.showPriority(row.children[3])
 
         list.appendChild(row);
@@ -232,6 +232,31 @@ class UI {
         document.querySelector('.form-date').value = '';
         document.querySelector('.form-priority').value = '';
         document.querySelector('.form-project').value = '';
+    }
+
+    static changeTitle(currentTitle) {
+        const titleInput = document.createElement('div');
+
+        currentTitle.innerText = '';
+        
+        titleInput.innerHTML = `
+        <form class='title-form'>
+            <div id="entry-div">
+            <input name='title-input' type="text" class="change-title">
+            <label for='title-input'></label>
+            </div>    
+            <div id="project-btn-div">
+                    <button id="add-project-btn">Change</button>
+                    <button id="cancel-project-btn">Cancel</button>
+                </div>
+            </form>
+        `
+        currentTitle.appendChild(titleInput);
+
+        const newTitle = document.querySelector('.change-title').innerText
+        
+        console.log(newTitle);
+
     }
 
     // Project UI Methods
@@ -287,13 +312,13 @@ class UI {
         }
 };
 
-// Event: Delete project
+// Event: Display Projects
+document.addEventListener('DOMContentLoaded', UI.displayProjects);
+
+// Event: Delete Project
     document.querySelector('.projects-list').addEventListener('click', (e) => {
         UI.deleteProject(e.target);
     });
-
-// Event: Display Projects
-document.addEventListener('DOMContentLoaded', UI.displayProjects);
 
 // Event: Add Project Input
 document.querySelector('#add-project').addEventListener('click', (e) => {
@@ -378,8 +403,16 @@ document.querySelector('.modal-form').addEventListener('submit', (e) => {
 });
 
 // Event: Remove a Task
-
 document.querySelector('#to-do-list').addEventListener('click', 
 (e) => {
     UI.deleteTask(e.target);
 })
+// Double click on Title to pull up changeTitle form
+document.querySelector('#table').addEventListener('dblclick', (e) => {
+    if(e.target.classList.contains('title')) {
+    console.log(e.target);
+    UI.changeTitle(e.target);
+    }
+})
+
+
