@@ -236,6 +236,7 @@ class UI {
 
     static changeTitle(currentTitle) {
         const titleInput = document.createElement('div');
+        titleInput.classList.add('title-input');
 
         currentTitle.innerText = '';
         
@@ -246,17 +247,12 @@ class UI {
             <label for='title-input'></label>
             </div>    
             <div id="project-btn-div">
-                    <button id="add-project-btn">Change</button>
-                    <button id="cancel-project-btn">Cancel</button>
+                    <button id="change-title-btn">Change</button>
+                    <button id="cancel-title-btn">Cancel</button>
                 </div>
             </form>
         `
         currentTitle.appendChild(titleInput);
-
-        const newTitle = document.querySelector('.change-title').innerText
-        
-        console.log(newTitle);
-
     }
 
     // Project UI Methods
@@ -410,9 +406,37 @@ document.querySelector('#to-do-list').addEventListener('click',
 // Double click on Title to pull up changeTitle form
 document.querySelector('#table').addEventListener('dblclick', (e) => {
     if(e.target.classList.contains('title')) {
-    console.log(e.target);
-    UI.changeTitle(e.target);
-    }
+        const currentTitle = e.target.innerText
+        UI.changeTitle(e.target);
+        
+
+           // Change a New Title entry
+    document.querySelector('#change-title-btn').addEventListener('click', (e) => {
+        // Prevent Default
+        e.preventDefault();
+
+     const titleInput = document.querySelector('.change-title').value;
+
+     if (titleInput === '') {
+        alert('Please enter a value');
+     } else {
+        // Change the UI title to user-inputted title
+     e.target.parentElement.parentElement.parentElement.parentElement.innerText = titleInput;
+     }
+ })
+        // Cancel a New Title entry
+    document.querySelector('#cancel-title-btn').addEventListener('click', (e) => {
+       // Prevent Default
+       e.preventDefault();
+
+    // Keeps the Title name the same
+    e.target.parentElement.parentElement.parentElement.parentElement.innerText = currentTitle;
+
 })
+    }
+ 
+})
+
+
 
 

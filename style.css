@@ -143,7 +143,9 @@ h2 {
 }
 
 #add-project-btn,
-#cancel-project-btn {
+#cancel-project-btn,
+#change-title-btn,
+#cancel-title-btn {
     font-weight: bold;
     width: 80px;
     height: 30px;
@@ -152,12 +154,14 @@ h2 {
     border-radius: 3px;
 }
 
-#add-project-btn {
+#add-project-btn,
+#change-title-btn {
     background-color: rgb(63, 148, 63);
     border: rgb(63, 148, 63);
 }
 
-#cancel-project-btn { 
+#cancel-project-btn,
+#cancel-title-btn { 
     background-color: rgb(204, 74, 74);
     border: rgb(204, 74, 74);
 }
