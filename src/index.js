@@ -306,6 +306,18 @@ class UI {
             el.parentElement.remove();
          }
         }
+
+    static addProjectOptionToModal(option) {
+        const optionInput = document.querySelector('.form-project');
+        const newProjectOption = document.createElement('option');
+        newProjectOption.innerHTML = `${option}`;
+        newProjectOption.setAttribute(`value`, `${option}`)
+
+        console.log(newProjectOption);
+
+        optionInput.appendChild(newProjectOption);
+        console.log(optionInput);
+    }
 };
 
 // Event: Display Projects
@@ -347,6 +359,9 @@ document.querySelector('#add-project-btn').addEventListener('click', (e) => {
 
     // Clear Project fields
     UI.clearProjectInput();
+
+    // Add project entry to Modal dropsdown
+    UI.addProjectOptionToModal(title);
     }
 })
 
@@ -379,7 +394,7 @@ document.querySelector('.modal-form').addEventListener('submit', (e) => {
     const project = document.querySelector('.form-project').value;
 
     // Validate
-    if(title === '' || date === '' || priority === '' || project === '') {
+    if(title === '' || date === '' || priority === '') {
         UI.showAlert();
     } else {
         // Instantiate Task
