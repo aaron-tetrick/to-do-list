@@ -142,37 +142,47 @@ class Task {
         this.priority = priority;
         this.project = project;
     }
-} 
+}
+
+// Store Tasks Class: Handles Storage of Tasks
+class StoreTasks {
+    static getTasks() {
+        let tasks;
+        if(localStorage.getItem('tasks') === null) {
+            tasks = [];
+        } else {
+            tasks = JSON.parse(localStorage.getItem('tasks'));
+        }
+
+        return tasks;
+    }
+
+    static addTask(task) {
+        const tasks = StoreTasks.getTasks();
+        tasks.push(task);
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+
+    static removeTask(title) {
+        const tasks = StoreTasks.getTasks();
+
+        tasks.forEach((task, index) => {
+            if(task.title === title) {
+                tasks.splice(index, 1);
+            }
+        });
+
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+}
 
 // UI Class: Handle UI Tasks
 class UI {
     // Task UI Methods
     static displayTasks() { 
-        const StoredTasks = [
-            {
-                title: 'Dishes',
-                date: '8/21/22',
-                priority: 'Medium',
-                project: 'Household Chores'
-            },
-            {
-                title: 'Visit Bank',
-                date: '8/24/22',
-                priority: 'High',
-                project: 'Errands'
-            }
-        ];
-
-        const tasks = StoredTasks;
+        const tasks = StoreTasks.getTasks();
 
         tasks.forEach(task => UI.addTaskToList(task));
-        tasks.forEach(task => {
-            if(task.priority === 'High') {
-                console.log(task);
-                
-            }
-            console.log(task.priority);
-        })
     }
 
     static addTaskToList(task) {
@@ -402,6 +412,9 @@ document.querySelector('.modal-form').addEventListener('submit', (e) => {
 
         // Add Task to UI
         UI.addTaskToList(task);
+
+        // Add Task to StoreTasks
+        StoreTasks.addTask(task);
     
         // Clear Fields
         UI.clearFields();
@@ -416,8 +429,15 @@ document.querySelector('.modal-form').addEventListener('submit', (e) => {
 // Event: Remove a Task
 document.querySelector('#to-do-list').addEventListener('click', 
 (e) => {
+    // Remove Task from UI
     UI.deleteTask(e.target);
+
+    // Remove Task from StoreTasks
+    StoreTasks.removeTask(e.target.parentElement.parentElement.nextElementSibling.textContent);
+    console.log(e.target.parentElement.parentElement.nextElementSibling.textContent);
 })
+
+
 // Double click on Title to pull up changeTitle form
 document.querySelector('#table').addEventListener('dblclick', (e) => {
     if(e.target.classList.contains('title')) {
