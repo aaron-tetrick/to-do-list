@@ -190,9 +190,7 @@ class StoreTasks {
 
     static addProject(project) {
         const projects = StoreProjects.getProjects();
-
         projects.push(project);
-
         localStorage.setItem('projects', JSON.stringify(projects));
     }
 
@@ -359,12 +357,12 @@ document.addEventListener('DOMContentLoaded', UI.displayProjects);
 
 // Event: Delete Project
     document.querySelector('.projects-list').addEventListener('click', (e) => {
-        console.log(e.target.parentElement);
+        console.log(e.target.previousElementSibling.textContent);
         // Remove Project from UI
         UI.deleteProject(e.target);
 
         // Remove Project from Store
-         StoreProjects.removeProject(e.target.parentElement);
+         StoreProjects.removeProject(e.target.previousElementSibling.textContent);
        
     });
 
