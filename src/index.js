@@ -176,6 +176,39 @@ class StoreTasks {
     }
 }
 
+// Store Projects Class: Handles Storage of Project
+ class StoreProjects {
+    static getProjects() {
+        let projects;
+        if(localStorage.getItem('projects') === null) {
+            projects = [];
+        } else {
+            projects = JSON.parse(localStorage.getItem('projects'));
+        }
+        return projects;
+    }
+
+    static addProject(project) {
+        const projects = StoreProjects.getProjects();
+
+        projects.push(project);
+
+        localStorage.setItem('projects', JSON.stringify(projects));
+    }
+
+    static removeProject(title) {
+        const projects = StoreProjects.getProjects();
+
+        projects.forEach((project, index) => {
+            if(project.title === title) {
+                projects.splice(index, 1);
+            }
+        });
+
+        localStorage.setItem('projects', JSON.stringify(projects));
+    }
+ }
+
 // UI Class: Handle UI Tasks
 class UI {
     // Task UI Methods
@@ -267,16 +300,7 @@ class UI {
 
     // Project UI Methods
     static displayProjects() { 
-        const StoredProjects = [
-            {
-                title: 'Chores'
-            },
-            {
-                title: 'Errands',
-            }
-        ];
-
-        const projects = StoredProjects;
+        const projects = StoreProjects.getProjects();
 
         projects.forEach(project => UI.addProjectToList(project));
     }
@@ -335,7 +359,13 @@ document.addEventListener('DOMContentLoaded', UI.displayProjects);
 
 // Event: Delete Project
     document.querySelector('.projects-list').addEventListener('click', (e) => {
+        console.log(e.target.parentElement);
+        // Remove Project from UI
         UI.deleteProject(e.target);
+
+        // Remove Project from Store
+         StoreProjects.removeProject(e.target.parentElement);
+       
     });
 
 // Event: Add Project Input
@@ -363,6 +393,9 @@ document.querySelector('#add-project-btn').addEventListener('click', (e) => {
 
     // Add Project to List
     UI.addProjectToList(project);
+
+    // Add Project to StoreProjects
+    StoreProjects.addProject(project);
 
     // Hide input form
     UI.hideInputForm();
