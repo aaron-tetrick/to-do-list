@@ -306,12 +306,14 @@ class UI {
     static addProjectToList(project) {
         const projectsList = document.querySelector('.projects-list');
 
+        // Validate that an entry title is unique
+
         const newProject = document.createElement('li');
         newProject.className = 'project-list-item';
 
         newProject.innerHTML = `
         <div class="list-item-div">
-        <div>${project.title}</div>
+        <div class="project-title-item">${project.title}</div>
         <div class="close-project-btn">x</div>
         </div>`;
 
@@ -340,30 +342,34 @@ class UI {
         }
 
     static addProjectOptionToModal(option) {
-        const optionInput = document.querySelector('.form-project');
-        const newProjectOption = document.createElement('option');
-        newProjectOption.innerHTML = `${option}`;
-        newProjectOption.setAttribute(`value`, `${option}`)
+        const projectsList = document.querySelector('.projects-list').childNodes;
 
-        console.log(newProjectOption);
+        Array.from(projectsList).forEach(project => {
+            const projectDropdown = document.querySelector('.form-project');
+            const projectTitle = project.firstChild.nextElementSibling.firstChild.nextElementSibling.textContent;
+            const projectEntry = document.createElement('option');
+            projectEntry.innerHTML = `${projectTitle}`;
+            projectEntry.setAttribute('value', `${projectTitle}`);
 
-        optionInput.appendChild(newProjectOption);
-        console.log(optionInput);
+            projectDropdown.appendChild(projectEntry);
+        });
     }
 };
 
 // Event: Display Projects
 document.addEventListener('DOMContentLoaded', UI.displayProjects);
 
+document.addEventListener('DOMContentLoaded', UI.addProjectOptionToModal);
+
 // Event: Delete Project
     document.querySelector('.projects-list').addEventListener('click', (e) => {
-        console.log(e.target.previousElementSibling.textContent);
-        // Remove Project from UI
+        if(e.target.classList.contains('close-project-btn')) {
+            // Remove Project from UI
         UI.deleteProject(e.target);
 
         // Remove Project from Store
-         StoreProjects.removeProject(e.target.previousElementSibling.textContent);
-       
+         StoreProjects.removeProject(e.target.previousElementSibling.innerText);
+        }
     });
 
 // Event: Add Project Input
@@ -401,10 +407,31 @@ document.querySelector('#add-project-btn').addEventListener('click', (e) => {
     // Clear Project fields
     UI.clearProjectInput();
 
-    // Add project entry to Modal dropsdown
-    UI.addProjectOptionToModal(title);
+    // Add project entry to Modal dropdown
+    const projectDropdown = Array.from(document.querySelector('.form-project').children);
+    const projectSidebar = Array.from(document.querySelector('.projects-list').children);
+    console.log(projectSidebar, "HEEEY")
+    console.log(projectDropdown, "HIII");
+    if (projectDropdown.length === 0) {
+        UI.addProjectOptionToModal(title);
+    } else {
+            for (let i=0; i < projectSidebar.length; i++) {
+                console.log(projectDropdown[i].firstChild.textContent, 'Dropdown')
+                console.log(projectSidebar[i].firstChild.nextSibling.firstChild.nextSibling.textContent, "Sidebar");
+                    if(title !== projectSidebar[i].firstChild.nextSibling.firstChild.nextSibling.textContent &&
+                       title !== projectDropdown[i].firstChild.textContent) {
+                        UI.addProjectOptionToModal(title);
+                }
+            }
+        }
     }
 })
+
+// When adding a project entry I want that specific project to be added to the dropdown
+// I don't want the entire project sidebar to be added to the dropdown
+// I need logic for both adding and deleting an entry onto the sidebar that applies to the dropdown as well
+// When I reload the page I want the dropdown to reflect the sidebar (Check)
+// Try going off of what is in addProjectToList function bc that is what you want but add to dropdown instead
 
 // Cancel adding a project entry
 document.querySelector('#cancel-project-btn').addEventListener('click', (e) => {
