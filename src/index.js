@@ -35,10 +35,6 @@ newTask.addEventListener('click', addTask);
 closeModalBtn.addEventListener('click', closeModal);
 cancelBtn.addEventListener('click', closeModal);
 
-
-
-
-
 //Click Add Button
 const addBtn = document.querySelector('.add-btn');
 // addBtn.addEventListener('click', closeModal);
@@ -311,11 +307,27 @@ class UI {
 
     static changePriority(currentPriority) {
         const priorityDropdown = document.createElement('select');
+        priorityDropdown.classList.add('priority-dropdown');
+        currentPriority.innerText = '';
+        currentPriority.parentElement.classList.remove('high');
 
         priorityDropdown.innerHTML = `
-        
+        <option value='none'></option>
+        <option class='priorityOption' value='high'>High</option>
+        <option class='priorityOption' value='medium'>Medium</option>
+        <option class='priorityOption' value='low'>Low</option>
         `;
+
         console.log(priorityDropdown);
+
+        currentPriority.parentElement.appendChild(priorityDropdown);
+    }
+
+    static selectPriority(priority) {
+        const newPriority = document.querySelector('.priority');
+        console.log(newPriority);
+        console.log(priority)
+
     }
 
     // Project UI Methods
@@ -560,13 +572,22 @@ document.querySelector('#table').addEventListener('dblclick', (e) => {
 // Double click on Priority to pull up Priority Dropdown
 document.querySelector('#table').addEventListener('dblclick', (e) => { 
     if(e.target.classList.contains('priority')) {
-        // Prevent Default
-        e.preventDefault();
+        const entryTitle = e.target.parentElement.previousElementSibling.previousElementSibling.firstChild.innerText;
+        const currentPriority = e.target;
+        UI.changePriority(currentPriority);
 
-        const currentPriority = e.target.innerText;
-        console.log(currentPriority);
+        // Change the priority level
+        document.querySelector('.priority-dropdown').addEventListener('change', (e) => {
+            console.log(e.target);
+            // KEEP ADDING LOGIC FOR EACH PRIORITY LEVEL BELOW (entryTitle should be in each one's args)
+            if(e.target.value === 'none') {
+                alert('Please select a priority');
+            } else if (e.target.value === 'high') {
+                UI.selectPriority('High', entryTitle);
+            }
+        })
 
-        UI.changePriority();
+
     }
 })
 
