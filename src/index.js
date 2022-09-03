@@ -342,7 +342,6 @@ class UI {
         }
     // Add Project Entry to Modal
     static addProjectOptionToModal(option) {
-        const projectsList = document.querySelector('.projects-list');
         const projectDropdown = document.querySelector('.form-project');
         const projectEntry = document.createElement('option');
         projectEntry.setAttribute('value', `${option}`)
@@ -360,14 +359,27 @@ class UI {
             }
         }
     }
+    // Populate the dropdown with the project entries after reloading page.
+    static populateDropdown() {
+      const projectsList = Array.from(document.querySelector('.projects-list').children);
+      const projectDropdown = document.querySelector('.form-project');
+      if (projectsList.length !== 0) {
+        projectsList.forEach(project => {
+            const entryTitle = project.firstChild.nextSibling.firstChild.nextSibling.innerText
+            const projectEntry = document.createElement('option');
+            projectEntry.setAttribute('value', `${entryTitle}`)
+            projectEntry.innerHTML = `${entryTitle}`;
+
+            projectDropdown.appendChild(projectEntry);
+        });
+      }      
+    }
 };
-
-
 
 // Event: Display Projects
 document.addEventListener('DOMContentLoaded', UI.displayProjects);
 
-// document.addEventListener('DOMContentLoaded', UI.addProjectOptionToModal);
+document.addEventListener('DOMContentLoaded', UI.populateDropdown);
 
 // Event: Delete Project
     document.querySelector('.projects-list').addEventListener('click', (e) => {
@@ -378,9 +390,10 @@ document.addEventListener('DOMContentLoaded', UI.displayProjects);
 
         // Remove Project from Store
          StoreProjects.removeProject(e.target.previousElementSibling.innerText);
-        }
-
+        
+        //  Remove Project from Dropdown
         UI.deleteProjectOptionFromModal(e.target.previousElementSibling.innerText);
+        }
     });
 
 // Event: Add Project Input
@@ -488,7 +501,6 @@ document.querySelector('#to-do-list').addEventListener('click',
 
     // Remove Task from StoreTasks
     StoreTasks.removeTask(e.target.parentElement.parentElement.nextElementSibling.textContent);
-    console.log(e.target.parentElement.parentElement.nextElementSibling.textContent);
 })
 
 
