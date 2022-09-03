@@ -340,36 +340,47 @@ class UI {
             el.parentElement.remove();
          }
         }
-
+    // Add Project Entry to Modal
     static addProjectOptionToModal(option) {
-        const projectsList = document.querySelector('.projects-list').childNodes;
+        const projectsList = document.querySelector('.projects-list');
+        const projectDropdown = document.querySelector('.form-project');
+        const projectEntry = document.createElement('option');
+        projectEntry.setAttribute('value', `${option}`)
+        projectEntry.innerHTML = `${option}`;
 
-        Array.from(projectsList).forEach(project => {
-            const projectDropdown = document.querySelector('.form-project');
-            const projectTitle = project.firstChild.nextElementSibling.firstChild.nextElementSibling.textContent;
-            const projectEntry = document.createElement('option');
-            projectEntry.innerHTML = `${projectTitle}`;
-            projectEntry.setAttribute('value', `${projectTitle}`);
-
-            projectDropdown.appendChild(projectEntry);
-        });
+        projectDropdown.appendChild(projectEntry);
+    }
+    // Delete Project Entry to Modal
+    static deleteProjectOptionFromModal(option) {
+        const projectDropdown = Array.from(document.querySelector('.form-project').children);
+        
+        for (let i=0; i < projectDropdown.length; i++) {
+            if(projectDropdown[i].innerText === option) {
+            projectDropdown[i].remove();
+            }
+        }
     }
 };
+
+
 
 // Event: Display Projects
 document.addEventListener('DOMContentLoaded', UI.displayProjects);
 
-document.addEventListener('DOMContentLoaded', UI.addProjectOptionToModal);
+// document.addEventListener('DOMContentLoaded', UI.addProjectOptionToModal);
 
 // Event: Delete Project
     document.querySelector('.projects-list').addEventListener('click', (e) => {
         if(e.target.classList.contains('close-project-btn')) {
+            console.log(e.target.previousElementSibling.innerText);
             // Remove Project from UI
         UI.deleteProject(e.target);
 
         // Remove Project from Store
          StoreProjects.removeProject(e.target.previousElementSibling.innerText);
         }
+
+        UI.deleteProjectOptionFromModal(e.target.previousElementSibling.innerText);
     });
 
 // Event: Add Project Input
@@ -408,22 +419,7 @@ document.querySelector('#add-project-btn').addEventListener('click', (e) => {
     UI.clearProjectInput();
 
     // Add project entry to Modal dropdown
-    const projectDropdown = Array.from(document.querySelector('.form-project').children);
-    const projectSidebar = Array.from(document.querySelector('.projects-list').children);
-    console.log(projectSidebar, "HEEEY")
-    console.log(projectDropdown, "HIII");
-    if (projectDropdown.length === 0) {
-        UI.addProjectOptionToModal(title);
-    } else {
-            for (let i=0; i < projectSidebar.length; i++) {
-                console.log(projectDropdown[i].firstChild.textContent, 'Dropdown')
-                console.log(projectSidebar[i].firstChild.nextSibling.firstChild.nextSibling.textContent, "Sidebar");
-                    if(title !== projectSidebar[i].firstChild.nextSibling.firstChild.nextSibling.textContent &&
-                       title !== projectDropdown[i].firstChild.textContent) {
-                        UI.addProjectOptionToModal(title);
-                }
-            }
-        }
+    UI.addProjectOptionToModal(title);
     }
 })
 
