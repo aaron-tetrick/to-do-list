@@ -142,6 +142,19 @@ class Task {
         this.priority = priority;
         this.project = project;
     }
+
+    static changeTitle(oldTitle, newTitle) {
+        // Unstringifies the tasks objects in localStorage
+        const tasks = JSON.parse(localStorage.getItem('tasks'));
+        // Changes the title in localStorage to newly inputted title
+        for (let i=0; i < tasks.length; i++) {
+                if(tasks[i].title === oldTitle) {
+                    tasks[i].title = newTitle;
+                }
+        }
+        // Restringifies and sets the tasks objects in localStorage 
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
 }
 
 // Store Tasks Class: Handles Storage of Tasks
@@ -296,6 +309,15 @@ class UI {
         currentTitle.appendChild(titleInput);
     }
 
+    static changePriority(currentPriority) {
+        const priorityDropdown = document.createElement('select');
+
+        priorityDropdown.innerHTML = `
+        
+        `;
+        console.log(priorityDropdown);
+    }
+
     // Project UI Methods
     static displayProjects() { 
         const projects = StoreProjects.getProjects();
@@ -436,12 +458,6 @@ document.querySelector('#add-project-btn').addEventListener('click', (e) => {
     }
 })
 
-// When adding a project entry I want that specific project to be added to the dropdown
-// I don't want the entire project sidebar to be added to the dropdown
-// I need logic for both adding and deleting an entry onto the sidebar that applies to the dropdown as well
-// When I reload the page I want the dropdown to reflect the sidebar (Check)
-// Try going off of what is in addProjectToList function bc that is what you want but add to dropdown instead
-
 // Cancel adding a project entry
 document.querySelector('#cancel-project-btn').addEventListener('click', (e) => {
   // Prevent Default
@@ -505,13 +521,11 @@ document.querySelector('#to-do-list').addEventListener('click',
     }
 })
 
-
 // Double click on Title to pull up changeTitle form
 document.querySelector('#table').addEventListener('dblclick', (e) => {
     if(e.target.classList.contains('title')) {
         const currentTitle = e.target.innerText
         UI.changeTitle(e.target);
-        
 
            // Change a New Title entry
     document.querySelector('#change-title-btn').addEventListener('click', (e) => {
@@ -525,7 +539,10 @@ document.querySelector('#table').addEventListener('dblclick', (e) => {
      } else {
         // Change the UI title to user-inputted title
      e.target.parentElement.parentElement.parentElement.parentElement.innerText = titleInput;
-     }
+        // Change the Task Object title
+     Task.changeTitle(currentTitle, titleInput);
+    
+    }
  })
         // Cancel a New Title entry
     document.querySelector('#cancel-title-btn').addEventListener('click', (e) => {
@@ -540,6 +557,18 @@ document.querySelector('#table').addEventListener('dblclick', (e) => {
  
 })
 
+// Double click on Priority to pull up Priority Dropdown
+document.querySelector('#table').addEventListener('dblclick', (e) => { 
+    if(e.target.classList.contains('priority')) {
+        // Prevent Default
+        e.preventDefault();
+
+        const currentPriority = e.target.innerText;
+        console.log(currentPriority);
+
+        UI.changePriority();
+    }
+})
 
 
 
