@@ -228,9 +228,9 @@ class UI {
                     <label for=${task.title.replace(' ', '-')}>
                 </div>
             </td>
-            <td class='tdl-header title'>${task.title}</td>
-            <td class='tdl-header date'>${task.date}</td>
-            <td class='tdl-header priority'>${task.priority}</td>
+            <td class='tdl-header'><span class='title'>${task.title}</span></td>
+            <td class='tdl-header'><span class='date'>${task.date}</span></td>
+            <td class='tdl-header'><span class='priority'>${task.priority}</span></td>
         `;
 
         UI.showPriority(row.children[3])
@@ -500,7 +500,9 @@ document.querySelector('#to-do-list').addEventListener('click',
     UI.deleteTask(e.target);
 
     // Remove Task from StoreTasks
+    if(e.target.classList.contains('completed')) {
     StoreTasks.removeTask(e.target.parentElement.parentElement.nextElementSibling.textContent);
+    }
 })
 
 

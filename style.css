@@ -178,10 +178,6 @@ h2 {
     justify-content: flex-start;
 }
 
-.title {
-    font-size: 3rem;
-}
-
 #table {
     width: min-content;
     max-width: fit-content;
@@ -417,9 +413,10 @@ h2 {
 
 /*PSEUDO ELEMENTS/CLASSES*/
 .add-btn:hover, .cancel-btn:hover,
-.high:hover,
-.med.med:hover,
-.low:hover {
+.title:hover,
+.date:hover,
+.priority:hover
+ {
     opacity: 1;
     transition: 0.3s;
     text-decoration: none;
