@@ -228,7 +228,7 @@ h2 {
     color: rgb(180, 0, 0);
 }
 
-.med {
+.medium {
     color: rgb(160, 104, 0);
 }
 
@@ -237,10 +237,17 @@ h2 {
 }
 
 .high::before,
-.med::before,
+.medium::before,
 .low::before {
     content: '\25CF';
     margin-right: 3px;
+}
+
+.priority-dropdown {
+    height: 25px;
+    width: 100px;
+    border-radius: 3px;
+    font-size: 1.25rem;
 }
 
 /* CHECKBOX STYLING */

@@ -239,7 +239,7 @@ class UI {
             </td>
             <td class='tdl-header'><span class='title'>${task.title}</span></td>
             <td class='tdl-header'><span class='date'>${task.date}</span></td>
-            <td class='tdl-header'><span class='priority'>${task.priority}</span></td>
+            <td class='tdl-header ${task.title.toLowerCase()}-parent'><span class='${task.title.toLowerCase()} priority'>${task.priority}</span></td>
         `;
 
         UI.showPriority(row.children[3])
@@ -252,7 +252,7 @@ class UI {
             el.classList.add('high');
         }
         else if (el.innerText === 'Medium') {
-            el.classList.add('med');
+            el.classList.add('medium');
         } 
         else if (el.innerText === 'Low') {
             el.classList.add('low');
@@ -305,11 +305,16 @@ class UI {
         currentTitle.appendChild(titleInput);
     }
 
-    static changePriority(currentPriority) {
+    static changePriority(currentPriority, title) {
         const priorityDropdown = document.createElement('select');
-        priorityDropdown.classList.add('priority-dropdown');
-        currentPriority.innerText = '';
+        const priorityParent = document.querySelector(`.${title}-parent`);
+    
+        priorityDropdown.classList.add(`priority-dropdown-${title}`);
+        priorityDropdown.classList.add(`priority-dropdown`);
         currentPriority.parentElement.classList.remove('high');
+        currentPriority.parentElement.classList.remove('medium');
+        currentPriority.parentElement.classList.remove('low');
+        currentPriority.remove();
 
         priorityDropdown.innerHTML = `
         <option value='none'></option>
@@ -318,16 +323,23 @@ class UI {
         <option class='priorityOption' value='low'>Low</option>
         `;
 
-        console.log(priorityDropdown);
-
-        currentPriority.parentElement.appendChild(priorityDropdown);
+        priorityParent.appendChild(priorityDropdown);
     }
 
-    static selectPriority(priority) {
-        const newPriority = document.querySelector('.priority');
-        console.log(newPriority);
-        console.log(priority)
+    static selectPriority(priority, title) {
+        const newPriority = document.createElement('span');
+        const priorityDropdown = document.querySelector(`.priority-dropdown-${title.toLowerCase()}`);
+        const priorityParent = document.querySelector(`.${title.toLowerCase()}-parent`);
 
+        newPriority.innerHTML = `${priority}`;
+        newPriority.classList.remove('medium');
+        newPriority.classList.remove('low');
+        newPriority.classList.add(`${priority}`.toLowerCase());
+        newPriority.classList.add('priority');
+
+        priorityDropdown.remove();
+
+        priorityParent.appendChild(newPriority);
     }
 
     // Project UI Methods
@@ -574,20 +586,22 @@ document.querySelector('#table').addEventListener('dblclick', (e) => {
     if(e.target.classList.contains('priority')) {
         const entryTitle = e.target.parentElement.previousElementSibling.previousElementSibling.firstChild.innerText;
         const currentPriority = e.target;
-        UI.changePriority(currentPriority);
+        UI.changePriority(currentPriority, entryTitle.toLowerCase());
 
         // Change the priority level
-        document.querySelector('.priority-dropdown').addEventListener('change', (e) => {
-            console.log(e.target);
+        document.querySelector(`.priority-dropdown-${entryTitle.toLowerCase()}`).addEventListener('change', (e) => {
+            console.log(e.target.value, "Value of Priority");
             // KEEP ADDING LOGIC FOR EACH PRIORITY LEVEL BELOW (entryTitle should be in each one's args)
             if(e.target.value === 'none') {
                 alert('Please select a priority');
             } else if (e.target.value === 'high') {
                 UI.selectPriority('High', entryTitle);
+            } else if (e.target.value === 'medium') {
+                UI.selectPriority('Medium', entryTitle);
+            } else if (e.target.value === 'low') {
+                UI.selectPriority('Low', entryTitle);
             }
         })
-
-
     }
 })
 
