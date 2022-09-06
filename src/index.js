@@ -241,7 +241,7 @@ class UI {
         const list = document.querySelector('#to-do-list');
 
         const row = document.createElement('tr');
-
+        
         row.innerHTML = `
             <td class='tdl-header delete'>
                 <div class='checkbox-container'>
@@ -526,6 +526,10 @@ document.querySelector('.modal-form').addEventListener('submit', (e) => {
     if(title === '' || date === '' || priority === '') {
         UI.showAlert();
     } else {
+
+        console.log(date);
+        console.log(title);
+
         // Instantiate Task
         const task = new Task(title, date, priority, project)
 

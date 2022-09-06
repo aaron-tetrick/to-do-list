@@ -55,6 +55,7 @@ const createModal = function() {
     
     inputTitle.setAttribute('name', 'title');
     inputDate.setAttribute('name', 'date');
+    inputDate.setAttribute('type', 'date')
     inputPriority.setAttribute('name', 'priority');
     inputProject.setAttribute('name', 'project');
 
