@@ -151,6 +151,18 @@ class Task {
         // Restringifies and sets the tasks objects in localStorage 
         localStorage.setItem('tasks', JSON.stringify(tasks));
     }
+
+    static changePriority(newPriority, entryTitle) {
+        // Unstringifies the tasks objects in localStorage
+        const tasks = JSON.parse(localStorage.getItem('tasks'));
+        for (let i=0; i < tasks.length; i++) {
+            if(tasks[i].title === entryTitle) {
+                tasks[i].priority = newPriority;
+            }
+        }
+        // Restringifies and sets the tasks objects in localStorage 
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
 }
 
 // Store Tasks Class: Handles Storage of Tasks
@@ -590,20 +602,18 @@ document.querySelector('#table').addEventListener('dblclick', (e) => {
 
         // Change the priority level
         document.querySelector(`.priority-dropdown-${entryTitle.toLowerCase()}`).addEventListener('change', (e) => {
-            console.log(e.target.value, "Value of Priority");
-            // KEEP ADDING LOGIC FOR EACH PRIORITY LEVEL BELOW (entryTitle should be in each one's args)
             if(e.target.value === 'none') {
                 alert('Please select a priority');
             } else if (e.target.value === 'high') {
                 UI.selectPriority('High', entryTitle);
+                Task.changePriority('High', entryTitle);
             } else if (e.target.value === 'medium') {
                 UI.selectPriority('Medium', entryTitle);
+                Task.changePriority('Medium', entryTitle);
             } else if (e.target.value === 'low') {
                 UI.selectPriority('Low', entryTitle);
+                Task.changePriority('Low', entryTitle);
             }
         })
     }
 })
-
-
-
