@@ -2,10 +2,12 @@ import { createModal } from './modal';
 import { createInbox, removeNewTask } from './inbox';
 import { createToday } from './today';
 import { createWeek } from './week';
+import { format, addDays, parseISO } from 'date-fns';
 
 createInbox();
 createModal();
 //addObject();
+
 
 // Form inputs
 const inputTitle = document.querySelector('.form-title');
@@ -241,7 +243,13 @@ class UI {
         const list = document.querySelector('#to-do-list');
 
         const row = document.createElement('tr');
-        
+
+        const date = addDays(parseISO(`${task.date}`), 0);
+        const dateFormatted = format(date, 'P');
+
+          
+          console.log(task.date);
+
         row.innerHTML = `
             <td class='tdl-header delete'>
                 <div class='checkbox-container'>
@@ -250,7 +258,7 @@ class UI {
                 </div>
             </td>
             <td class='tdl-header'><span class='title'>${task.title}</span></td>
-            <td class='tdl-header'><span class='date'>${task.date}</span></td>
+            <td class='tdl-header'><span class='date'>${dateFormatted}</span></td>
             <td class='tdl-header ${task.title.toLowerCase()}-parent'><span class='${task.title.toLowerCase()} priority'>${task.priority}</span></td>
         `;
 
@@ -352,6 +360,10 @@ class UI {
         priorityDropdown.remove();
 
         priorityParent.appendChild(newPriority);
+    }
+
+    static changeDate() {
+        console.log("Change Date");
     }
 
     // Project UI Methods
@@ -621,3 +633,12 @@ document.querySelector('#table').addEventListener('dblclick', (e) => {
         })
     }
 })
+
+// Double click on Date to pull up Date input
+document.querySelector('#table').addEventListener('dblclick', (e) => {
+    if(e.target.classList.contains('date')) {
+        UI.changeDate();
+    }
+   
+
+});
