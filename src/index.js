@@ -258,7 +258,7 @@ class UI {
                 </div>
             </td>
             <td class='tdl-header'><span class='title'>${task.title}</span></td>
-            <td class='tdl-header'><span class='date'>${dateFormatted}</span></td>
+            <td class='tdl-header ${task.title.toLowerCase()}-date-parent'><span class='date'>${dateFormatted}</span></td>
             <td class='tdl-header ${task.title.toLowerCase()}-parent'><span class='${task.title.toLowerCase()} priority'>${task.priority}</span></td>
         `;
 
@@ -358,12 +358,33 @@ class UI {
         newPriority.classList.add('priority');
 
         priorityDropdown.remove();
-
         priorityParent.appendChild(newPriority);
     }
 
-    static changeDate() {
-        console.log("Change Date");
+    static changeDate(currentDate, title) {
+        const newDate = document.createElement('span');
+        const dateParent = document.querySelector(`.${title.toLowerCase()}-date-parent`)
+        
+
+        newDate.innerHTML = `
+        <input name ='newDate' type='date' class='${title.toLowerCase()}-date date-input'>
+        `;
+
+        currentDate.remove();
+        dateParent.appendChild(newDate);
+    }
+
+    static selectDate(selectedDate, title) {
+        const dateParent = document.querySelector(`.${title.toLowerCase()}-date-parent`);
+        const dateInput = document.querySelector(`.${title.toLowerCase()}-date`);
+
+        const dateFormmated = format(parseISO(`${selectedDate}`), 'P');
+        const newDate = document.createElement('span');
+        newDate.classList.add('date');
+        newDate.innerHTML = `${dateFormmated}`;
+
+        dateInput.remove();
+        dateParent.appendChild(newDate);
     }
 
     // Project UI Methods
@@ -637,8 +658,18 @@ document.querySelector('#table').addEventListener('dblclick', (e) => {
 // Double click on Date to pull up Date input
 document.querySelector('#table').addEventListener('dblclick', (e) => {
     if(e.target.classList.contains('date')) {
-        UI.changeDate();
-    }
-   
+        const entryTitle = e.target.parentElement.previousElementSibling.firstElementChild.innerText;
+        const currentDate = e.target
+        UI.changeDate(currentDate, entryTitle);
 
-});
+         // Change the date
+        document.querySelector(`.${entryTitle.toLowerCase()}-date`).addEventListener('change', (e) => {
+            console.log(e.target.value)
+            if(e.target.value === '') {
+                alert('Please select a due date');
+            } else {
+            UI.selectDate(e.target.value, entryTitle);
+            }
+        })
+    }
+})
