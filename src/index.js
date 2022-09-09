@@ -165,6 +165,18 @@ class Task {
         // Restringifies and sets the tasks objects in localStorage 
         localStorage.setItem('tasks', JSON.stringify(tasks));
     }
+
+    static changeDate(currentDate, entryTitle) {
+        // Unstringifies the tasks objects in localStorage
+        const tasks = JSON.parse(localStorage.getItem('tasks'));
+        for (let i=0; i < tasks.length; i++) {
+            if(tasks[i].title === entryTitle) {
+                tasks[i].date = currentDate
+            }
+        }
+        // Restringifies and sets the tasks objects in localStorage 
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
 }
 
 // Store Tasks Class: Handles Storage of Tasks
@@ -377,7 +389,6 @@ class UI {
     static selectDate(selectedDate, title) {
         const dateParent = document.querySelector(`.${title.toLowerCase()}-date-parent`);
         const dateInput = document.querySelector(`.${title.toLowerCase()}-date`);
-
         const dateFormmated = format(parseISO(`${selectedDate}`), 'P');
         const newDate = document.createElement('span');
         newDate.classList.add('date');
@@ -669,6 +680,7 @@ document.querySelector('#table').addEventListener('dblclick', (e) => {
                 alert('Please select a due date');
             } else {
             UI.selectDate(e.target.value, entryTitle);
+            Task.changeDate(e.target.value, entryTitle);
             }
         })
     }
