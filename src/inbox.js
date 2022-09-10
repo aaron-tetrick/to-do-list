@@ -1,4 +1,4 @@
-class Inbox {
+export class Inbox {
     static createInbox()  {   
         const contentTitle = document.getElementById('content-title');
         const content = document.getElementById('content');
@@ -20,15 +20,9 @@ class Inbox {
     
     
     static removeNewTask() {
+        const newTask = document.querySelector('.new-task');
             newTask.remove();
     }
 
     
 }
-
-
-
-
-
-
-export {Inbox};

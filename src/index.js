@@ -1,7 +1,7 @@
 import { Modal } from './modal';
 import { Inbox } from './inbox';
-import { createToday } from './today';
-import { createWeek } from './week';
+import { Today } from './today';
+import { Week } from './week';
 import { format, addDays, parseISO } from 'date-fns';
 
 Inbox.createInbox();
@@ -49,7 +49,8 @@ function reloadPage() {
 }
 
 //Open Inbox
-function selectInbox() {
+function selectInbox(e) {
+    e.preventDefault();
     const todayDiv = document.querySelector('.today-div');
     const weekDiv = document.querySelector('.week-div');
     if(today.className.includes('current-page')) {
@@ -66,15 +67,17 @@ function selectInbox() {
     inbox.classList.add('current-page');
     week.classList.remove('current-page');
 
-    createInbox();
+    Inbox.createInbox();
 }
 
 
 
 //Open Today's projects
-function selectToday() {
+function selectToday(e) {
+    e.preventDefault();
     const inboxDiv = document.querySelector('.inbox-div');
     const weekDiv = document.querySelector('.week-div');
+    const newTask = document.querySelector('.new-task');
     if(inbox.className.includes('current-page')) {
         console.log("You selected today.");
         console.log(inboxDiv);
@@ -89,15 +92,19 @@ function selectToday() {
     today.classList.add('current-page');
     inbox.classList.remove('current-page');
     week.classList.remove('current-page')
-    
-    removeNewTask();
-    createToday();
+
+    Today.createToday();
+    if(newTask) {
+    Inbox.removeNewTask();
+    }
 }
 
 //Open Week projects
-function selectWeek() {
+function selectWeek(e) {
+    e.preventDefault();
     const inboxDiv = document.querySelector('.inbox-div');
     const todayDiv = document.querySelector('.today-div');
+    const newTask = document.querySelector('.new-task');
     if(inbox.className.includes('current-page')) {
         console.log("You selected week");
         inboxDiv.remove();
@@ -112,8 +119,10 @@ function selectWeek() {
     inbox.classList.remove('current-page');
     week.classList.add('current-page')
 
-    removeNewTask();
-    createWeek();
+    Week.createWeek();
+    if(newTask) {
+    Inbox.removeNewTask();
+    }
 }
 
 // Project Class: Represents a Project
