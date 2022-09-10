@@ -4,126 +4,9 @@ import { Today } from './today';
 import { Week } from './week';
 import { format, addDays, parseISO } from 'date-fns';
 
+// Load the Inbox page (and the hidden Modal) on pageload
 Inbox.createInbox();
 Modal.createModal();
-
-// Open/Close the Modal
-    const newTask = document.querySelector('.new-task');
-    const closeModalBtn = document.querySelector('.close-btn');
-    const modal = document.querySelector('.modal');
-    const cancelBtn = document.querySelector('.cancel-btn');
-    
-
-    function addTask() {
-        modal.style.display = "block";
-    }
-    
-    function closeModal() {
-        modal.style.display = "none";
-        UI.clearFields();
-    }
-
-//Event Listeners for modal form    
-newTask.addEventListener('click', addTask);
-closeModalBtn.addEventListener('click', closeModal);
-cancelBtn.addEventListener('click', closeModal);
-
-//Click Add Button
-const addBtn = document.querySelector('.add-btn');
-// addBtn.addEventListener('click', closeModal);
-
-//Sidebar list
-const inbox = document.querySelector('.inbox');
-const today = document.querySelector('.today');
-const week = document.querySelector('.week');
-
-//Side bar list event listeners
-inbox.addEventListener('click', selectInbox);
-today.addEventListener('click', selectToday);
-week.addEventListener('click', selectWeek);
-inbox.addEventListener('click', reloadPage);
-
-
-function reloadPage() {
-    location.reload();
-}
-
-//Open Inbox
-function selectInbox(e) {
-    e.preventDefault();
-    const todayDiv = document.querySelector('.today-div');
-    const weekDiv = document.querySelector('.week-div');
-    if(today.className.includes('current-page')) {
-        console.log("You selected today.");
-        todayDiv.remove();
-    } else if (week.className.includes('current-page')) {
-        console.log('You also selected today');
-        weekDiv.remove();
-    } else if (inbox.className.includes('current-page')) {
-        return;
-    }
-
-    today.classList.remove('current-page');
-    inbox.classList.add('current-page');
-    week.classList.remove('current-page');
-
-    Inbox.createInbox();
-}
-
-
-
-//Open Today's projects
-function selectToday(e) {
-    e.preventDefault();
-    const inboxDiv = document.querySelector('.inbox-div');
-    const weekDiv = document.querySelector('.week-div');
-    const newTask = document.querySelector('.new-task');
-    if(inbox.className.includes('current-page')) {
-        console.log("You selected today.");
-        console.log(inboxDiv);
-        inboxDiv.remove();
-    } else if (week.className.includes('current-page')) {
-        console.log('You also selected today');
-        weekDiv.remove();
-    } else if (today.className.includes('current-page')) {
-        return;
-    }
-
-    today.classList.add('current-page');
-    inbox.classList.remove('current-page');
-    week.classList.remove('current-page')
-
-    Today.createToday();
-    if(newTask) {
-    Inbox.removeNewTask();
-    }
-}
-
-//Open Week projects
-function selectWeek(e) {
-    e.preventDefault();
-    const inboxDiv = document.querySelector('.inbox-div');
-    const todayDiv = document.querySelector('.today-div');
-    const newTask = document.querySelector('.new-task');
-    if(inbox.className.includes('current-page')) {
-        console.log("You selected week");
-        inboxDiv.remove();
-    } else if (today.className.includes('current-page')) {
-        console.log('You also selected week');
-        todayDiv.remove();
-    } else if (week.className.includes('current-page')) {
-        return;
-    }
-
-    today.classList.remove('current-page');
-    inbox.classList.remove('current-page');
-    week.classList.add('current-page')
-
-    Week.createWeek();
-    if(newTask) {
-    Inbox.removeNewTask();
-    }
-}
 
 // Project Class: Represents a Project
 class Project {
@@ -188,7 +71,6 @@ class StoreTasks {
         } else {
             tasks = JSON.parse(localStorage.getItem('tasks'));
         }
-
         return tasks;
     }
 
@@ -206,7 +88,6 @@ class StoreTasks {
                 tasks.splice(index, 1);
             }
         });
-
         localStorage.setItem('tasks', JSON.stringify(tasks));
     }
 }
@@ -237,13 +118,25 @@ class StoreTasks {
                 projects.splice(index, 1);
             }
         });
-
         localStorage.setItem('projects', JSON.stringify(projects));
     }
  }
 
 // UI Class: Handle UI Tasks
 class UI {
+    // Open Modal
+    static displayModal() {
+        const modal = document.querySelector('.modal');
+        modal.style.display = "block";
+    }
+
+    // Close Modal
+    static closeModal() {
+        const modal = document.querySelector('.modal');
+        modal.style.display = "none";
+        UI.clearFields();
+    }
+
     // Task UI Methods
     static displayTasks() { 
         const tasks = StoreTasks.getTasks();
@@ -253,7 +146,6 @@ class UI {
 
     static addTaskToList(task) {
         const list = document.querySelector('#to-do-list');
-
         const row = document.createElement('tr');
 
         const date = addDays(parseISO(`${task.date}`), 0);
@@ -478,10 +370,23 @@ class UI {
     }
 };
 
+//*****EVENTS*****
+
+
 // Event: Display Projects
 document.addEventListener('DOMContentLoaded', UI.displayProjects);
 
 document.addEventListener('DOMContentLoaded', UI.populateDropdown);
+
+// Sidebar Event Listeners
+document.querySelector('.inbox').addEventListener('click', Inbox.selectInbox);
+document.querySelector('.today').addEventListener('click', Today.selectToday);
+document.querySelector('.week').addEventListener('click', Week.selectWeek);
+
+//Modal Form Event Listeners
+document.querySelector('.new-task').addEventListener('click', UI.displayModal);
+document.querySelector('.close-btn').addEventListener('click', UI.closeModal);
+document.querySelector('.cancel-btn').addEventListener('click', UI.closeModal);
 
 // Event: Delete Project
     document.querySelector('.projects-list').addEventListener('click', (e) => {
