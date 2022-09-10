@@ -48,6 +48,6 @@ export class Today {
 
         if(newTask) {
             Inbox.removeNewTask();
-        }
+         }
     }
 }

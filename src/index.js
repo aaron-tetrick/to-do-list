@@ -5,8 +5,8 @@ import { Week } from './week';
 import { format, addDays, parseISO } from 'date-fns';
 
 // Load the Inbox page (and the hidden Modal) on pageload
-Inbox.createInbox();
 Modal.createModal();
+Inbox.createInbox();
 
 // Project Class: Represents a Project
 class Project {
@@ -151,9 +151,6 @@ class UI {
         const date = addDays(parseISO(`${task.date}`), 0);
         const dateFormatted = format(date, 'P');
 
-          
-          console.log(task.date);
-
         row.innerHTML = `
             <td class='tdl-header delete'>
                 <div class='checkbox-container'>
@@ -172,13 +169,13 @@ class UI {
     }
 
     static showPriority(el) {
-        if (el.innerText === 'High') {
+        if(el.innerText === 'High') {
             el.classList.add('high');
         }
-        else if (el.innerText === 'Medium') {
+        else if(el.innerText === 'Medium') {
             el.classList.add('medium');
         } 
-        else if (el.innerText === 'Low') {
+        else if(el.innerText === 'Low') {
             el.classList.add('low');
         }
     }
@@ -329,7 +326,6 @@ class UI {
 
     // Delete a Project from Sidebar
     static deleteProject(el) {
-         console.log(el.parentElement);
          if(el.classList.contains('close-project-btn')) {
             el.parentElement.remove();
          }
@@ -357,7 +353,7 @@ class UI {
     static populateDropdown() {
       const projectsList = Array.from(document.querySelector('.projects-list').children);
       const projectDropdown = document.querySelector('.form-project');
-      if (projectsList.length !== 0) {
+      if(projectsList.length !== 0) {
         projectsList.forEach(project => {
             const entryTitle = project.firstChild.nextSibling.firstChild.nextSibling.innerText
             const projectEntry = document.createElement('option');
@@ -391,7 +387,6 @@ document.querySelector('.cancel-btn').addEventListener('click', UI.closeModal);
 // Event: Delete Project
     document.querySelector('.projects-list').addEventListener('click', (e) => {
         if(e.target.classList.contains('close-project-btn')) {
-            console.log(e.target.previousElementSibling.innerText);
             // Remove Project from UI
         UI.deleteProject(e.target);
 
@@ -419,7 +414,7 @@ document.querySelector('#add-project-btn').addEventListener('click', (e) => {
 
     // Get project title value
     const title = document.querySelector('#project-entry').value;
-    if (title === '') {
+    if(title === '') {
         alert('Please enter a value');
 
     } else {
@@ -464,38 +459,42 @@ document.querySelector('.modal-form').addEventListener('submit', (e) => {
     // Prevent Default
     e.preventDefault();
 
-
     // Get form values
     const title = document.querySelector('.form-title').value
     const date = document.querySelector('.form-date').value
     const priority = document.querySelector('.form-priority').value;
     const project = document.querySelector('.form-project').value;
+    let tasks = StoreTasks.getTasks();
 
-    // Validate
-    if(title === '' || date === '' || priority === '') {
-        UI.showAlert();
-    } else {
+    // Check if a task already exists
+  let match = tasks.filter(task => {
+        if(task.title === title) {
+            return true;
+        }
+    });
+        // Validate
+        if(title === '' || date === '' || priority === '') {
+            UI.showAlert();
+        } else if(match.length > 0) {
+            alert('Task names must be different');
+        } else {
+            // Instantiate Task
+            const task = new Task(title, date, priority, project)
 
-        console.log(date);
-        console.log(title);
+            // Add Task to UI
+            UI.addTaskToList(task);
 
-        // Instantiate Task
-        const task = new Task(title, date, priority, project)
-
-        // Add Task to UI
-        UI.addTaskToList(task);
-
-        // Add Task to StoreTasks
-        StoreTasks.addTask(task);
+            // Add Task to StoreTasks
+            StoreTasks.addTask(task);
     
-        // Clear Fields
-        UI.clearFields();
+            // Clear Fields
+            UI.clearFields();
 
-        // Close Modal
-        closeModal();
+            // Close Modal
+            UI.closeModal();
 
-        console.log(task);
-  }
+            match = [];
+        }
 });
 
 // Event: Remove a Task
@@ -523,7 +522,7 @@ document.querySelector('#table').addEventListener('dblclick', (e) => {
 
      const titleInput = document.querySelector('.change-title').value;
 
-     if (titleInput === '') {
+     if(titleInput === '') {
         alert('Please enter a value');
      } else {
         // Change the UI title to user-inputted title
@@ -557,13 +556,13 @@ document.querySelector('#table').addEventListener('dblclick', (e) => {
         document.querySelector(`.priority-dropdown-${entryTitle.toLowerCase()}`).addEventListener('change', (e) => {
             if(e.target.value === 'none') {
                 alert('Please select a priority');
-            } else if (e.target.value === 'high') {
+            } else if(e.target.value === 'high') {
                 UI.selectPriority('High', entryTitle);
                 Task.changePriority('High', entryTitle);
-            } else if (e.target.value === 'medium') {
+            } else if(e.target.value === 'medium') {
                 UI.selectPriority('Medium', entryTitle);
                 Task.changePriority('Medium', entryTitle);
-            } else if (e.target.value === 'low') {
+            } else if(e.target.value === 'low') {
                 UI.selectPriority('Low', entryTitle);
                 Task.changePriority('Low', entryTitle);
             }
@@ -580,7 +579,6 @@ document.querySelector('#table').addEventListener('dblclick', (e) => {
 
          // Change the date
         document.querySelector(`.${entryTitle.toLowerCase()}-date`).addEventListener('change', (e) => {
-            console.log(e.target.value)
             if(e.target.value === '') {
                 alert('Please select a due date');
             } else {

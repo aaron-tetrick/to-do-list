@@ -5,6 +5,9 @@ export class Inbox {
         const inboxDiv = document.createElement('div');
         const title = document.createElement('h2');
         const newTask = document.createElement('p');
+        const modal = document.querySelector('.modal');
+
+        console.log(modal);
     
         title.innerText = "Inbox";
         newTask.innerText = "+ New Task";
@@ -12,16 +15,17 @@ export class Inbox {
         inboxDiv.classList.add('inbox-div');
         title.classList.add('title');
         newTask.classList.add('new-task');
+        newTask.style.display = 'block';
     
         inboxDiv.appendChild(title);
-        content.appendChild(newTask);
+        // content.insertBefore(newTask, modal);
         contentTitle.appendChild(inboxDiv);
     }
     
     
     static removeNewTask() {
         const newTask = document.querySelector('.new-task');
-            newTask.remove();
+            newTask.style.display = 'none';
     }
 
     //Open Inbox
