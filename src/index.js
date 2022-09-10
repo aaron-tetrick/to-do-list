@@ -1,20 +1,11 @@
-import { createModal } from './modal';
-import { createInbox, removeNewTask } from './inbox';
+import { Modal } from './modal';
+import { Inbox } from './inbox';
 import { createToday } from './today';
 import { createWeek } from './week';
 import { format, addDays, parseISO } from 'date-fns';
 
-createInbox();
-createModal();
-//addObject();
-
-
-// Form inputs
-const inputTitle = document.querySelector('.form-title');
-const inputDate = document.querySelector('.form-date');
-const inputPriority = document.querySelector('.form-priority');
-const inputProject = document.querySelector('.form-project');
-
+Inbox.createInbox();
+Modal.createModal();
 
 // Open/Close the Modal
     const newTask = document.querySelector('.new-task');

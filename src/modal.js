@@ -1,43 +1,43 @@
-const content = document.getElementById('content');
-const modal = document.createElement('div');
-const modalContent = document.createElement('div');
-const closeBtn = document.createElement('span');
+export class Modal {
+ static createModal() {
+    const content = document.getElementById('content');
+    const modal = document.createElement('div');
+    const modalContent = document.createElement('div');
+    const closeBtn = document.createElement('span');
 
-const modalHeaderDiv = document.createElement('div');
-const modalHeader = document.createElement('h2');
-const modalBodyDiv = document.createElement('div');
-const modalForm = document.createElement('form');
+    const modalHeaderDiv = document.createElement('div');
+    const modalHeader = document.createElement('h2');
+    const modalBodyDiv = document.createElement('div');
+    const modalForm = document.createElement('form');
 
-const inputTitle = document.createElement('input');
-const inputDate = document.createElement('input');
-const inputPriority = document.createElement('select');
-const inputProject = document.createElement('select');
+    const inputTitle = document.createElement('input');
+    const inputDate = document.createElement('input');
+    const inputPriority = document.createElement('select');
+    const inputProject = document.createElement('select');
 
-const formDiv1 = document.createElement('div');
-const formDiv2 = document.createElement('div');
+    const formDiv1 = document.createElement('div');
+    const formDiv2 = document.createElement('div');
 
-const modalInputs = document.createElement('div');
+    const modalInputs = document.createElement('div');
 
-const labelTitle = document.createElement('label');
-const labelDate = document.createElement('label');
-const labelPriority = document.createElement('label');
-const labelProject = document.createElement('label');
+    const labelTitle = document.createElement('label');
+    const labelDate = document.createElement('label');
+    const labelPriority = document.createElement('label');
+    const labelProject = document.createElement('label');
 
-const titleDiv = document.createElement('div');
-const dateDiv = document.createElement('div');
-const priorityDiv = document.createElement('div');
-const projectDiv = document.createElement('div');
+    const titleDiv = document.createElement('div');
+    const dateDiv = document.createElement('div');
+    const priorityDiv = document.createElement('div');
+    const projectDiv = document.createElement('div');
 
-const optionHigh = document.createElement('option');
-const optionMed = document.createElement('option');
-const optionLow = document.createElement('option');
+    const optionHigh = document.createElement('option');
+    const optionMed = document.createElement('option');
+    const optionLow = document.createElement('option');
 
-const formDiv3 = document.createElement('div');
-const addBtn = document.createElement('input');
-const cancelBtn = document.createElement('input');
+    const formDiv3 = document.createElement('div');
+    const addBtn = document.createElement('input');
+    const cancelBtn = document.createElement('input');
 
-
-const createModal = function() {
     closeBtn.innerHTML = "&times;";
     modalHeader.innerText = 'Add New Task';
     labelTitle.innerText = "Title:";
@@ -136,4 +136,4 @@ const createModal = function() {
 }
 
 
-export {createModal};
+}
