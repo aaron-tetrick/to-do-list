@@ -24,6 +24,7 @@ export class Today {
         const week = document.querySelector('.week');
         
         const newTask = document.querySelector('.new-task');
+        
         if(inbox.className.includes('current-page')) {
             console.log("You selected today.");
         } else if (week.className.includes('current-page')) {

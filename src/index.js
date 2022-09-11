@@ -2,6 +2,7 @@ import { Modal } from './modal';
 import { Inbox } from './inbox';
 import { Today } from './today';
 import { Week } from './week';
+import { ProjectEntry } from './project';
 import { format, addDays, parseISO } from 'date-fns';
 
 // Load the Inbox page (and the hidden Modal) on pageload
@@ -127,7 +128,6 @@ class UI {
     // Open Modal
     static displayModal() {
         const modal = document.querySelector('.modal');
-        console.log(modal);
         modal.style.display = "block";
     }
 
@@ -365,6 +365,12 @@ class UI {
         });
       }      
     }
+
+    // Click Project on Sidebar
+    static selectProject(title) {
+        console.log('Youn clicked on...', title)
+
+    }
 };
 
 //*****EVENTS*****
@@ -451,6 +457,18 @@ document.querySelector('#cancel-project-btn').addEventListener('click', (e) => {
   UI.clearProjectInput();
 })
 
+// Event: Click on a sidelist project
+document.querySelector('.projects-list').addEventListener('click', (e) => {
+      // Prevent Default
+      e.preventDefault();
+    if(e.target.classList.contains('project-title-item')){
+        UI.selectProject(e.target.innerText);
+        ProjectEntry.createProject(e.target.innerText);
+
+    }
+
+})
+
 // Event: Display Tasks
 document.addEventListener('DOMContentLoaded', UI.displayTasks);
 
@@ -530,7 +548,6 @@ document.querySelector('#table').addEventListener('dblclick', (e) => {
      e.target.parentElement.parentElement.parentElement.parentElement.innerText = titleInput;
         // Change the Task Object title
      Task.changeTitle(currentTitle, titleInput);
-    
     }
  })
         // Cancel a New Title entry
