@@ -4,17 +4,15 @@ export class Week {
     // Creates Week's projects
     static createWeek() {
         const contentTitle = document.getElementById('content-title');
-        const content = document.getElementById('content');
-        const weekDiv = document.createElement('div');
+        const oldTitle = document.querySelector('.title');
         const title = document.createElement('h2');
 
+        oldTitle.remove();
         title.innerText = "Week";
 
         title.classList.add('title');
-        weekDiv.classList.add('week-div');
 
-        weekDiv.appendChild(title);
-        contentTitle.appendChild(weekDiv);
+        contentTitle.appendChild(title);
     }
 
     //Open Week projects
@@ -26,15 +24,10 @@ export class Week {
         const today = document.querySelector('.today');
         const week = document.querySelector('.week');
 
-        const inboxDiv = document.querySelector('.inbox-div');
-        const todayDiv = document.querySelector('.today-div');
         const newTask = document.querySelector('.new-task');
         if(inbox.className.includes('current-page')) {
             console.log("You selected week");
-            inboxDiv.remove();
         } else if (today.className.includes('current-page')) {
-            console.log('You also selected week');
-            todayDiv.remove();
         } else if (week.className.includes('current-page')) {
             return;
         }

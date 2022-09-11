@@ -127,6 +127,7 @@ class UI {
     // Open Modal
     static displayModal() {
         const modal = document.querySelector('.modal');
+        console.log(modal);
         modal.style.display = "block";
     }
 
