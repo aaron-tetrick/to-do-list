@@ -419,11 +419,22 @@ document.querySelector('#add-project-btn').addEventListener('click', (e) => {
       // Prevent Default
       e.preventDefault();
 
-    // Get project title value
+      // Get project title value
     const title = document.querySelector('#project-entry').value;
+      let projects = StoreProjects.getProjects();
+
+    // Check if a task already exists
+  let match = projects.filter(project => {
+        if(project.title === title) {
+            return true;
+        }
+    });
+
+
     if(title === '') {
         alert('Please enter a value');
-
+    } else if(match.length > 0) {
+        alert('Project names must be different');
     } else {
     // Instantiate Project
     const project = new Project(title);
@@ -442,6 +453,8 @@ document.querySelector('#add-project-btn').addEventListener('click', (e) => {
 
     // Add project entry to Modal dropdown
     UI.addProjectOptionToModal(title);
+
+    match = [];
     }
 })
 
