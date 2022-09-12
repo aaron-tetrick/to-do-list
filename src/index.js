@@ -375,7 +375,7 @@ export class UI {
     // Maybe just use displayTasks to display all tasks then delete the non-project ones
 
     // I either need to use Storage or maybe use the content-title text
-    
+
     // Click Project on Sidebar
     static selectProject(projectTitle) {
         const list = Array.from(document.querySelector('#to-do-list').childNodes);
@@ -466,6 +466,8 @@ document.querySelector('#add-project-btn').addEventListener('click', (e) => {
         alert('Please enter a value');
     } else if(match.length > 0) {
         alert('Project names must be different');
+    } else if (title === 'Inbox' || title === 'Today' || title === 'This Week' || title === 'Week') {
+        alert('Invalid project name');
     } else {
     // Instantiate Project
     const project = new Project(title);
