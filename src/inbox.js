@@ -1,4 +1,4 @@
-import { Modal } from "./modal";
+import { UI } from ".";
 
 export class Inbox {
     static createInbox()  {   
@@ -53,8 +53,14 @@ export class Inbox {
     inbox.classList.add('current-page');
     week.classList.remove('current-page');
 
-    // Modal.createModal();
+    const list = Array.from(document.querySelector('#to-do-list').childNodes);
+    let removeTasks = list.forEach(task => {
+        let checkbox = task.firstElementChild.firstElementChild.firstElementChild
+        UI.deleteTask(checkbox);
+    })
+
     Inbox.createInbox();
+    UI.displayTasks();
     }
 
     
