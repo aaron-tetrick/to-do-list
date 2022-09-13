@@ -5,7 +5,6 @@ export class ProjectEntry {
         const oldTitle = document.querySelector('.title');
         const title = document.createElement('h2');
         const newTask = document.querySelector('.new-task');
-        console.log(oldTitle)
 
         // Changes title text
         if(oldTitle === null) {

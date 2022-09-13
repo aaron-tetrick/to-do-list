@@ -6,6 +6,7 @@ export class Inbox {
         const oldTitle = document.querySelector('.title');
         const title = document.createElement('h2');
         const newTask = document.querySelector('.new-task');
+
         
         // Changes title text
         if(oldTitle === null) {
@@ -36,22 +37,12 @@ export class Inbox {
     static selectInbox(e) {
         e.preventDefault();
 
+        console.log(e, 'PLZZZZ')
+
         //Sidebar list
         const inbox = document.querySelector('.inbox');
         const today = document.querySelector('.today');
         const week = document.querySelector('.week');
-
-        if(today.className.includes('current-page')) {
-            console.log("You selected today.");
-        } else if (week.className.includes('current-page')) {
-            console.log('You also selected today');
-        } else if (inbox.className.includes('current-page')) {
-            return;
-    }
-
-    today.classList.remove('current-page');
-    inbox.classList.add('current-page');
-    week.classList.remove('current-page');
 
     const list = Array.from(document.querySelector('#to-do-list').childNodes);
     let removeTasks = list.forEach(task => {
@@ -59,8 +50,9 @@ export class Inbox {
         UI.deleteTask(checkbox);
     })
 
-    Inbox.createInbox();
     UI.displayTasks();
+    Inbox.createInbox();
+    
     }
 
     

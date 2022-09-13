@@ -368,40 +368,20 @@ export class UI {
       }      
     }
 
-    // Click on a Project XXX
-    // Find the Tasks that correspond to the Project
-    // Remove the Tasks that do not correspond with the Project
-
-    // Maybe just use displayTasks to display all tasks then delete the non-project ones
-
-    // I either need to use Storage or maybe use the content-title text
-
     // Click Project on Sidebar
     static selectProject(projectTitle) {
         const list = Array.from(document.querySelector('#to-do-list').childNodes);
-        // If you click on a project, delete all of that project's task, then later add them back
-        let filterTasks = list.forEach(task => {
-            if(task.firstElementChild.classList.contains(projectTitle)) {
-            let checkbox = task.firstElementChild.firstElementChild.firstElementChild
-             UI.deleteTask(checkbox);
-            }
+        const tasks = StoreTasks.getTasks();
+
+        list.forEach(task => {
+            task.remove();
         })
-
-        UI.displayTasks();
-
-        let tasks = StoreTasks.getTasks();
-        console.log(list);
-
-        let removeTasks = list.filter(task => {
-            if(task.firstElementChild.classList.contains(projectTitle)) {
-                console.log("MATCH", task.firstElementChild)
-            } else {
-                console.log(task.firstElementChild.firstElementChild.firstElementChild, "No Match")
-                UI.deleteTask(task.firstElementChild.firstElementChild.firstElementChild);
-
-            }
-        });
-        // console.log(filteredTasks, "HIII");
+        
+        for(let i=0; i < tasks.length; i++) {
+        if(tasks[i].project === projectTitle) {
+            UI.addTaskToList(tasks[i])
+        }
+    }
     }
 };
 
@@ -508,9 +488,13 @@ document.querySelector('.projects-list').addEventListener('click', (e) => {
       // Prevent Default
       e.preventDefault();
     if(e.target.classList.contains('project-title-item')){
+        const contentTitle = document.querySelector('.title').innerText
+
+        if(contentTitle !== e.target.innerText) {
         UI.selectProject(e.target.innerText);
         ProjectEntry.createProject(e.target.innerText);
-
+        }
+        
     }
 
 })

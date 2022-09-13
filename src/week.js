@@ -25,17 +25,7 @@ export class Week {
         const week = document.querySelector('.week');
 
         const newTask = document.querySelector('.new-task');
-        if(inbox.className.includes('current-page')) {
-            console.log("You selected week");
-        } else if (today.className.includes('current-page')) {
-        } else if (week.className.includes('current-page')) {
-            return;
-        }
-
-        today.classList.remove('current-page');
-        inbox.classList.remove('current-page');
-        week.classList.add('current-page')
-
+     
         Week.createWeek();
         if(newTask) {
             Inbox.removeNewTask();

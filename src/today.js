@@ -24,18 +24,6 @@ export class Today {
         const week = document.querySelector('.week');
         
         const newTask = document.querySelector('.new-task');
-        
-        if(inbox.className.includes('current-page')) {
-            console.log("You selected today.");
-        } else if (week.className.includes('current-page')) {
-            console.log('You also selected today');
-        } else if (today.className.includes('current-page')) {
-            return;
-        }
-
-        today.classList.add('current-page');
-        inbox.classList.remove('current-page');
-        week.classList.remove('current-page')
 
         Today.createToday();
 
