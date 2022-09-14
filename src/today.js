@@ -1,4 +1,6 @@
+import { UI } from ".";
 import { Inbox } from "./inbox";
+import { isToday } from 'date-fns';
 
 export class Today {
     // Creates Today's UI
@@ -23,6 +25,7 @@ export class Today {
     //Open Today's projects
     static selectToday(e) {
         e.preventDefault();
+        console.log(e.target);
 
         //Sidebar list
         const inbox = document.querySelector('.inbox');
@@ -38,3 +41,5 @@ export class Today {
          }
     }
 }
+
+document.querySelector('.today').addEventListener('click', Today.selectToday);

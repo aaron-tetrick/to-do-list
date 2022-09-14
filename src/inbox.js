@@ -45,8 +45,6 @@ export class Inbox {
     static selectInbox(e) {
         e.preventDefault();
 
-        console.log(e, 'PLZZZZ')
-
         //Sidebar list
         const inbox = document.querySelector('.inbox');
         const today = document.querySelector('.today');
@@ -62,6 +60,6 @@ export class Inbox {
     Inbox.createInbox();
     
     }
-
-    
 }
+
+document.querySelector('.inbox').addEventListener('click', Inbox.selectInbox);

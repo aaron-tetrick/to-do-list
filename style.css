@@ -73,6 +73,7 @@ h2 {
     align-items: center;
     flex-direction: column;
     background-color: gray;
+    max-width: 100%;
 
 }
 
@@ -90,6 +91,8 @@ h2 {
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
+    overflow-wrap: break-word;
+    max-width: 165px;
 }
 
 .list-item-div {
@@ -99,6 +102,13 @@ h2 {
     padding: 5px;
     font-size: 1.5rem;
     width: 150px;
+    /* overflow-wrap: break-word;
+    text-overflow: ellipsis; */
+}
+
+.project-list-item {
+    /* text-overflow: ellipsis;
+    overflow-wrap: break-word; */
 }
 
 .close-project-btn {
@@ -109,7 +119,8 @@ h2 {
     height: 20px;
     font-size: 22px;
     font-weight: bold;
-    color: black
+    color: black;
+    padding: 10px;
 }
 
 #project-form {
@@ -202,7 +213,7 @@ h2 {
     padding: 10px 0px;
     max-width: 275px;
     min-width: 225px;
-    overflow-wrap: break-word;
+    /* overflow-wrap: break-word; */
 }
 
 .title-form {

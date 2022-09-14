@@ -1,3 +1,4 @@
+import { UI } from ".";
 import { Inbox } from "./inbox";
 
 export class Week {
@@ -37,3 +38,6 @@ export class Week {
         }
     }
 }
+
+
+document.querySelector('.week').addEventListener('click', Week.selectWeek);

@@ -3,8 +3,7 @@ import { Inbox } from './inbox';
 import { Today } from './today';
 import { Week } from './week';
 import { ProjectEntry } from './project';
-import { format, addDays, parseISO } from 'date-fns';
-import { ta } from 'date-fns/locale';
+import { format, addDays, parseISO, isToday, isThisWeek } from 'date-fns';
 
 // Load the Inbox page (and the hidden Modal) on pageload
 Modal.createModal();
@@ -299,9 +298,6 @@ export class UI {
     
     static addProjectToList(project) {
         const projectsList = document.querySelector('.projects-list');
-
-        // Validate that an entry title is unique
-
         const newProject = document.createElement('li');
         newProject.className = 'project-list-item';
 
@@ -385,18 +381,16 @@ export class UI {
     }
 };
 
-//*****EVENTS*****
+//*****EVENTS*****\\
 
-
-// Event: Display Projects
+// Event: Display Projects and populate Dropdown with Projects
 document.addEventListener('DOMContentLoaded', UI.displayProjects);
-
 document.addEventListener('DOMContentLoaded', UI.populateDropdown);
 
 // Sidebar Event Listeners
-document.querySelector('.inbox').addEventListener('click', Inbox.selectInbox);
-document.querySelector('.today').addEventListener('click', Today.selectToday);
-document.querySelector('.week').addEventListener('click', Week.selectWeek);
+
+
+
 
 //Modal Form Event Listeners
 document.querySelector('.new-task').addEventListener('click', UI.displayModal);
@@ -433,9 +427,11 @@ document.querySelector('.cancel-btn').addEventListener('click', UI.closeModal);
             const table = document.querySelector('#table');
             const contentTitle = document.querySelector('.title');
             const newTask = document.querySelector('.new-task');
-            contentTitle.innerText = '';
-            newTask.style.display = 'none';
-            table.style.display = 'none';
+                if(contentTitle.innerText === e.target.previousElementSibling.innerText) {
+                contentTitle.innerText = '';
+                newTask.style.display = 'none';
+                table.style.display = 'none';
+                }
             }
         }
     });
@@ -458,7 +454,7 @@ document.querySelector('#add-project-btn').addEventListener('click', (e) => {
     const title = document.querySelector('#project-entry').value;
       let projects = StoreProjects.getProjects();
 
-    // Check if a task already exists
+    // Check if a project already exists
   let match = projects.filter(project => {
         if(project.title === title) {
             return true;
@@ -525,7 +521,6 @@ document.addEventListener('DOMContentLoaded', UI.displayTasks);
 
 // Event: Add a Task
 document.querySelector('.modal-form').addEventListener('submit', (e) => {
-  
     // Prevent Default
     e.preventDefault();
 
@@ -535,15 +530,19 @@ document.querySelector('.modal-form').addEventListener('submit', (e) => {
     const priority = document.querySelector('.form-priority').value;
     const project = document.querySelector('.form-project').value;
 
+
+    let newDate = date.replace(/-/g, ', ');
+    const result = isToday(new Date(newDate))
+    console.log(newDate);
+    console.log(result);
+
+
     const contentTitle = document.querySelector('.title').innerText;
     let tasks = StoreTasks.getTasks();
 
     // Check if a task already exists
-  let match = tasks.filter(task => {
-        if(task.title === title) {
-            return true;
-        }
-    });
+  let match = tasks.filter(task => { if(task.title === title) true });
+  
         // Validate
         if(title === '' || date === '' || priority === '') {
             UI.showAlert();
