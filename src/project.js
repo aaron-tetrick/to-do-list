@@ -18,6 +18,13 @@ export class ProjectEntry {
             contentTitle.appendChild(title);
         }
 
+        // Displays Table
+        if(table.style.display === 'block') {
+            return;
+        } else if(table.style.display === 'none') {
+            table.style.display = 'block';
+        }
+
          // Displays newTask Button
          if(newTask.style.display === 'block') {
             return;

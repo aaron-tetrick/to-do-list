@@ -6,6 +6,7 @@ export class Inbox {
         const oldTitle = document.querySelector('.title');
         const title = document.createElement('h2');
         const newTask = document.querySelector('.new-task');
+        const table = document.querySelector('#table');
 
         
         // Changes title text
@@ -18,6 +19,13 @@ export class Inbox {
             title.innerText = "Inbox";
             title.classList.add('title');
             contentTitle.appendChild(title);
+        }
+
+        // Displays Table
+        if(table.style.display === 'block') {
+            return;
+        } else if(table.style.display === 'none') {
+            table.style.display = 'block';
         }
 
         // Displays newTask Button

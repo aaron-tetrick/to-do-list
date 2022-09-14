@@ -10,8 +10,14 @@ export class Today {
         oldTitle.remove();
         title.innerText = "Today";
         title.classList.add('title');
-    
         contentTitle.appendChild(title);
+
+          // Displays Table
+          if(table.style.display === 'block') {
+            return;
+        } else if(table.style.display === 'none') {
+            table.style.display = 'block';
+        }
     }
 
     //Open Today's projects

@@ -9,10 +9,15 @@ export class Week {
 
         oldTitle.remove();
         title.innerText = "Week";
-
         title.classList.add('title');
-
         contentTitle.appendChild(title);
+
+        // Displays Table
+        if(table.style.display === 'block') {
+            return;
+        } else if(table.style.display === 'none') {
+            table.style.display = 'block';
+        }
     }
 
     //Open Week projects

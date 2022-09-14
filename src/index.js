@@ -406,14 +406,37 @@ document.querySelector('.cancel-btn').addEventListener('click', UI.closeModal);
 // Event: Delete Project
     document.querySelector('.projects-list').addEventListener('click', (e) => {
         if(e.target.classList.contains('close-project-btn')) {
+            if(confirm('Are you sure you want to delete this project?')  === true) {
             // Remove Project from UI
-        UI.deleteProject(e.target);
+            UI.deleteProject(e.target);
 
-        // Remove Project from Store
-         StoreProjects.removeProject(e.target.previousElementSibling.innerText);
+            // Remove Project from Storage
+            StoreProjects.removeProject(e.target.previousElementSibling.innerText);
         
-        //  Remove Project from Dropdown
-        UI.deleteProjectOptionFromModal(e.target.previousElementSibling.innerText);
+            //  Remove Project from Dropdown
+            UI.deleteProjectOptionFromModal(e.target.previousElementSibling.innerText);
+
+            // Removes all tasks
+            const tasks = StoreTasks.getTasks();
+            tasks.forEach(task => {
+                if(task.project === e.target.previousElementSibling.innerText) {
+                    const taskUI = document.querySelector(`#${task.title}`);
+                    // Remove task from UI
+                    UI.deleteTask(taskUI);
+
+                    // Remove task from Storage
+                    StoreTasks.removeTask(task.title);
+                }
+            })
+
+            // Blank out the page
+            const table = document.querySelector('#table');
+            const contentTitle = document.querySelector('.title');
+            const newTask = document.querySelector('.new-task');
+            contentTitle.innerText = '';
+            newTask.style.display = 'none';
+            table.style.display = 'none';
+            }
         }
     });
 
@@ -487,16 +510,14 @@ document.querySelector('#cancel-project-btn').addEventListener('click', (e) => {
 document.querySelector('.projects-list').addEventListener('click', (e) => {
       // Prevent Default
       e.preventDefault();
-    if(e.target.classList.contains('project-title-item')){
+    if(e.target.classList.contains('project-title-item')) {
         const contentTitle = document.querySelector('.title').innerText
 
         if(contentTitle !== e.target.innerText) {
         UI.selectProject(e.target.innerText);
         ProjectEntry.createProject(e.target.innerText);
-        }
-        
+        }   
     }
-
 })
 
 // Event: Display Tasks
@@ -514,7 +535,7 @@ document.querySelector('.modal-form').addEventListener('submit', (e) => {
     const priority = document.querySelector('.form-priority').value;
     const project = document.querySelector('.form-project').value;
 
-    const pageTitle = document.querySelector('.title').innerText;
+    const contentTitle = document.querySelector('.title').innerText;
     let tasks = StoreTasks.getTasks();
 
     // Check if a task already exists
@@ -533,7 +554,7 @@ document.querySelector('.modal-form').addEventListener('submit', (e) => {
             // Instantiate Task
             const task = new Task(title, date, priority, project)
 
-            if(pageTitle === 'Inbox' || pageTitle === task.project) {
+            if(contentTitle === 'Inbox' || contentTitle === task.project) {
              // Add Task to UI
              UI.addTaskToList(task);
             }
@@ -552,8 +573,7 @@ document.querySelector('.modal-form').addEventListener('submit', (e) => {
 });
 
 // Event: Remove a Task
-document.querySelector('#to-do-list').addEventListener('click', 
-(e) => {
+document.querySelector('#to-do-list').addEventListener('click', (e) => {
     // Remove Task from UI
     UI.deleteTask(e.target);
 
