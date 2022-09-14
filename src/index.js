@@ -513,6 +513,8 @@ document.querySelector('.modal-form').addEventListener('submit', (e) => {
     const date = document.querySelector('.form-date').value
     const priority = document.querySelector('.form-priority').value;
     const project = document.querySelector('.form-project').value;
+
+    const pageTitle = document.querySelector('.title').innerText;
     let tasks = StoreTasks.getTasks();
 
     // Check if a task already exists
@@ -527,12 +529,15 @@ document.querySelector('.modal-form').addEventListener('submit', (e) => {
         } else if(match.length > 0) {
             alert('Task names must be different');
         } else {
+            
             // Instantiate Task
             const task = new Task(title, date, priority, project)
 
-            // Add Task to UI
-            UI.addTaskToList(task);
-
+            if(pageTitle === 'Inbox' || pageTitle === task.project) {
+             // Add Task to UI
+             UI.addTaskToList(task);
+            }
+            
             // Add Task to StoreTasks
             StoreTasks.addTask(task);
     
@@ -542,7 +547,7 @@ document.querySelector('.modal-form').addEventListener('submit', (e) => {
             // Close Modal
             UI.closeModal();
 
-            match = [];
+            match = [];          
         }
 });
 
