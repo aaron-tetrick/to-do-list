@@ -62,5 +62,3 @@ export class Week {
     }
 }
 
-
-document.querySelector('.week').addEventListener('click', Week.selectWeek);

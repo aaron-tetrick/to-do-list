@@ -1,6 +1,5 @@
 import { StoreTasks } from ".";
 import { UI } from ".";
-import { isThisWeek } from 'date-fns';
 
 export class ProjectEntry {
     // Creates sidebar projects

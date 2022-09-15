@@ -37,18 +37,12 @@ export class Inbox {
     }
     
     static removeNewTask() {
-        const newTask = document.querySelector('.new-task');
-            newTask.style.display = 'none';
+        newTask.style.display = 'none';
     }
 
     //Open Inbox
     static selectInbox(e) {
         e.preventDefault();
-
-        //Sidebar list
-        const inbox = document.querySelector('.inbox');
-        const today = document.querySelector('.today');
-        const week = document.querySelector('.week');
 
     const list = Array.from(document.querySelector('#to-do-list').childNodes);
     let removeTasks = list.forEach(task => {
@@ -58,8 +52,5 @@ export class Inbox {
 
     UI.displayTasks();
     Inbox.createInbox();
-    
     }
 }
-
-document.querySelector('.inbox').addEventListener('click', Inbox.selectInbox);

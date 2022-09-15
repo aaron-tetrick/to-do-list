@@ -1,7 +1,9 @@
 import { Modal } from './modal';
 import { Inbox } from './inbox';
+import { Today } from './today';
+import { Week } from './week';
 import { ProjectEntry } from './project';
-import { format, addDays, parseISO, isToday, isThisWeek } from 'date-fns';
+import { format, addDays, parseISO } from 'date-fns';
 
 // Load the Inbox page (and the hidden Modal) on pageload
 Modal.createModal();
@@ -149,17 +151,18 @@ export class UI {
 
         const date = addDays(parseISO(`${task.date}`), 0);
         const dateFormatted = format(date, 'P');
+        let formatTitle = task.title.replaceAll(' ', '-');
 
         row.innerHTML = `
             <td class='tdl-header delete ${task.project}'>
                 <div class='checkbox-container'>
-                    <input type='checkbox' class='completed' id=${task.title.replace(' ', '-')}>
-                    <label for=${task.title.replace(' ', '-')}>
+                    <input type='checkbox' class='completed' id=${formatTitle}>
+                    <label for=${formatTitle}>
                 </div>
             </td>
             <td class='tdl-header'><span class='title'>${task.title}</span></td>
-            <td class='tdl-header ${task.title.toLowerCase()}-date-parent'><span class='date'>${dateFormatted}</span></td>
-            <td class='tdl-header ${task.title.toLowerCase()}-parent'><span class='${task.title.toLowerCase()} priority'>${task.priority}</span></td>
+            <td class='tdl-header ${formatTitle.toLowerCase()}-date-parent'><span class='date'>${dateFormatted}</span></td>
+            <td class='tdl-header ${formatTitle.toLowerCase()}-parent'><span class='${formatTitle.toLowerCase()} priority'>${task.priority}</span></td>
         `;
 
         UI.showPriority(row.children[3])
@@ -226,10 +229,13 @@ export class UI {
     }
 
     static changePriority(currentPriority, title) {
+        let formatTitle = title.replaceAll(' ', '-');
         const priorityDropdown = document.createElement('select');
-        const priorityParent = document.querySelector(`.${title}-parent`);
+        const priorityParent = document.querySelector(`.${formatTitle}-parent`);
+
+        console.log(priorityParent);
     
-        priorityDropdown.classList.add(`priority-dropdown-${title}`);
+        priorityDropdown.classList.add(`priority-dropdown-${formatTitle}`);
         priorityDropdown.classList.add(`priority-dropdown`);
         currentPriority.parentElement.classList.remove('high');
         currentPriority.parentElement.classList.remove('medium');
@@ -247,9 +253,10 @@ export class UI {
     }
 
     static selectPriority(priority, title) {
+        let formatPriority = title.replaceAll(' ', '-');
         const newPriority = document.createElement('span');
-        const priorityDropdown = document.querySelector(`.priority-dropdown-${title.toLowerCase()}`);
-        const priorityParent = document.querySelector(`.${title.toLowerCase()}-parent`);
+        const priorityDropdown = document.querySelector(`.priority-dropdown-${formatPriority.toLowerCase()}`);
+        const priorityParent = document.querySelector(`.${formatPriority.toLowerCase()}-parent`);
 
         newPriority.innerHTML = `${priority}`;
         newPriority.classList.remove('medium');
@@ -262,18 +269,20 @@ export class UI {
     }
 
     static changeDate(currentDate, title) {
+        const formatTitle = title.replaceAll(' ', '-');
         const newDate = document.createElement('span');
-        const dateParent = document.querySelector(`.${title.toLowerCase()}-date-parent`)
+        const dateParent = document.querySelector(`.${formatTitle.toLowerCase()}-date-parent`)
         
-        newDate.innerHTML = `<input name ='newDate' type='date' class='${title.toLowerCase()}-date date-input'>`;
+        newDate.innerHTML = `<input name ='newDate' type='date' class='${formatTitle.toLowerCase()}-date date-input'>`;
 
         currentDate.remove();
         dateParent.appendChild(newDate);
     }
 
     static selectDate(selectedDate, title) {
-        const dateParent = document.querySelector(`.${title.toLowerCase()}-date-parent`);
-        const dateInput = document.querySelector(`.${title.toLowerCase()}-date`);
+        let formatTitle = title.replaceAll(' ', '-');
+        const dateParent = document.querySelector(`.${formatTitle.toLowerCase()}-date-parent`);
+        const dateInput = document.querySelector(`.${formatTitle.toLowerCase()}-date`);
         const dateFormmated = format(parseISO(`${selectedDate}`), 'P');
         const newDate = document.createElement('span');
         newDate.classList.add('date');
@@ -365,9 +374,9 @@ document.addEventListener('DOMContentLoaded', UI.displayProjects);
 document.addEventListener('DOMContentLoaded', UI.populateDropdown);
 
 // Sidebar Event Listeners
-
-
-
+document.querySelector('.inbox').addEventListener('click', Inbox.selectInbox);
+document.querySelector('.today').addEventListener('click', Today.selectToday);
+document.querySelector('.week').addEventListener('click', Week.selectWeek);
 
 //Modal Form Event Listeners
 document.querySelector('.new-task').addEventListener('click', UI.displayModal);
@@ -391,22 +400,25 @@ document.querySelector('.cancel-btn').addEventListener('click', UI.closeModal);
             const tasks = StoreTasks.getTasks();
             tasks.forEach(task => {
                 if(task.project === e.target.previousElementSibling.innerText) {
-                    console.log(task.project, e.target.previousElementSibling.innerText)
+                    if(task.title.includes(' ')) {
+                        let newTitle = task.title.replaceAll(' ', '-');
+                        let taskUI = document.querySelector(`#${newTitle}`);
+                        console.log(newTitle, task.title, taskUI);
+                        UI.deleteTask(taskUI);
+                    } else {
                     let taskUI = document.querySelector(`#${task.title}`);
-                    console.log(taskUI)
-                    console.log(task, "HELP");
                     // Remove task from UI
                     UI.deleteTask(taskUI);
-
+                    }
                     // Remove task from Storage
                     StoreTasks.removeTask(task.title);
                 }
             })
 
-            // Blank out the page
             const table = document.querySelector('#table');
             const contentTitle = document.querySelector('.title');
             const newTask = document.querySelector('.new-task');
+            // Blank out the page
                 if(contentTitle.innerText === e.target.previousElementSibling.innerText) {
                 contentTitle.innerText = '';
                 newTask.style.display = 'none';
@@ -511,12 +523,6 @@ document.querySelector('.modal-form').addEventListener('submit', (e) => {
     const project = document.querySelector('.form-project').value;
 
 
-    let newDate = date.replace(/-/g, ', ');
-    const result = isToday(new Date(newDate))
-    console.log(newDate);
-    console.log(result);
-
-
     const contentTitle = document.querySelector('.title').innerText;
     let tasks = StoreTasks.getTasks();
 
@@ -524,7 +530,7 @@ document.querySelector('.modal-form').addEventListener('submit', (e) => {
   let match = tasks.filter(task => { if(task.title === title) true });
   
         // Validate
-        if(title === '' || date === '' || priority === '') {
+        if(title === '' || date === '' || priority === '' || project === '') {
             UI.showAlert();
         } else if(match.length > 0) {
             alert('Task names must be different');
@@ -602,11 +608,12 @@ document.querySelector('#table').addEventListener('dblclick', (e) => {
 document.querySelector('#table').addEventListener('dblclick', (e) => { 
     if(e.target.classList.contains('priority')) {
         const entryTitle = e.target.parentElement.previousElementSibling.previousElementSibling.firstChild.innerText;
+        let formatTitle = entryTitle.replaceAll(' ', '-');
         const currentPriority = e.target;
         UI.changePriority(currentPriority, entryTitle.toLowerCase());
 
         // Change the priority level
-        document.querySelector(`.priority-dropdown-${entryTitle.toLowerCase()}`).addEventListener('change', (e) => {
+        document.querySelector(`.priority-dropdown-${formatTitle.toLowerCase()}`).addEventListener('change', (e) => {
             if(e.target.value === 'none') {
                 alert('Please select a priority');
             } else if(e.target.value === 'high') {
@@ -627,11 +634,12 @@ document.querySelector('#table').addEventListener('dblclick', (e) => {
 document.querySelector('#table').addEventListener('dblclick', (e) => {
     if(e.target.classList.contains('date')) {
         const entryTitle = e.target.parentElement.previousElementSibling.firstElementChild.innerText;
+        let formatTitle = entryTitle.replaceAll(' ', '-');
         const currentDate = e.target
         UI.changeDate(currentDate, entryTitle);
 
          // Change the date
-        document.querySelector(`.${entryTitle.toLowerCase()}-date`).addEventListener('change', (e) => {
+        document.querySelector(`.${formatTitle.toLowerCase()}-date`).addEventListener('change', (e) => {
             if(e.target.value === '') {
                 alert('Please select a due date');
             } else {

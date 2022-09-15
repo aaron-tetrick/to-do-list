@@ -56,8 +56,3 @@ export class Today {
         }
     }
 }
-
-
-
-
-document.querySelector('.today').addEventListener('click', Today.selectToday);
