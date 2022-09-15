@@ -1,7 +1,5 @@
 import { Modal } from './modal';
 import { Inbox } from './inbox';
-import { Today } from './today';
-import { Week } from './week';
 import { ProjectEntry } from './project';
 import { format, addDays, parseISO, isToday, isThisWeek } from 'date-fns';
 
@@ -180,10 +178,9 @@ export class UI {
             el.classList.add('low');
         }
     }
-
+    // Deletes a task from the UI
     static deleteTask(el) {
         if(el.classList.contains('completed')) {
-            console.log(el);
           el.parentElement.parentElement.parentElement.remove();
         }
     }
@@ -268,10 +265,7 @@ export class UI {
         const newDate = document.createElement('span');
         const dateParent = document.querySelector(`.${title.toLowerCase()}-date-parent`)
         
-
-        newDate.innerHTML = `
-        <input name ='newDate' type='date' class='${title.toLowerCase()}-date date-input'>
-        `;
+        newDate.innerHTML = `<input name ='newDate' type='date' class='${title.toLowerCase()}-date date-input'>`;
 
         currentDate.remove();
         dateParent.appendChild(newDate);
@@ -292,7 +286,6 @@ export class UI {
     // Project UI Methods
     static displayProjects() { 
         const projects = StoreProjects.getProjects();
-
         projects.forEach(project => UI.addProjectToList(project));
     }
     
@@ -363,22 +356,6 @@ export class UI {
         });
       }      
     }
-
-    // Click Project on Sidebar
-    static selectProject(projectTitle) {
-        const list = Array.from(document.querySelector('#to-do-list').childNodes);
-        const tasks = StoreTasks.getTasks();
-
-        list.forEach(task => {
-            task.remove();
-        })
-        
-        for(let i=0; i < tasks.length; i++) {
-        if(tasks[i].project === projectTitle) {
-            UI.addTaskToList(tasks[i])
-        }
-    }
-    }
 };
 
 //*****EVENTS*****\\
@@ -410,11 +387,14 @@ document.querySelector('.cancel-btn').addEventListener('click', UI.closeModal);
             //  Remove Project from Dropdown
             UI.deleteProjectOptionFromModal(e.target.previousElementSibling.innerText);
 
-            // Removes all tasks
+            // Removes all tasks within Project
             const tasks = StoreTasks.getTasks();
             tasks.forEach(task => {
                 if(task.project === e.target.previousElementSibling.innerText) {
-                    const taskUI = document.querySelector(`#${task.title}`);
+                    console.log(task.project, e.target.previousElementSibling.innerText)
+                    let taskUI = document.querySelector(`#${task.title}`);
+                    console.log(taskUI)
+                    console.log(task, "HELP");
                     // Remove task from UI
                     UI.deleteTask(taskUI);
 
@@ -510,7 +490,7 @@ document.querySelector('.projects-list').addEventListener('click', (e) => {
         const contentTitle = document.querySelector('.title').innerText
 
         if(contentTitle !== e.target.innerText) {
-        UI.selectProject(e.target.innerText);
+        ProjectEntry.selectProject(e.target.innerText);
         ProjectEntry.createProject(e.target.innerText);
         }   
     }
@@ -582,6 +562,7 @@ document.querySelector('#to-do-list').addEventListener('click', (e) => {
     }
 })
 
+// CHANGE THE TASK INFORMATION ON THE TABLE \\
 // Double click on Title to pull up changeTitle form
 document.querySelector('#table').addEventListener('dblclick', (e) => {
     if(e.target.classList.contains('title')) {

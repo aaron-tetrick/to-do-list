@@ -1,5 +1,7 @@
 import { UI } from ".";
 import { Inbox } from "./inbox";
+import { StoreTasks } from ".";
+import { isThisWeek } from 'date-fns';
 
 export class Week {
     // Creates Week's projects
@@ -33,8 +35,29 @@ export class Week {
         const newTask = document.querySelector('.new-task');
      
         Week.createWeek();
+        Week.displayWeek();
+
         if(newTask) {
             Inbox.removeNewTask();
+        }
+    }
+
+     // Display only Today's tasks
+     static displayWeek() {
+        const list = Array.from(document.querySelector('#to-do-list').childNodes);
+        const tasks = StoreTasks.getTasks();
+
+        list.forEach(task => {
+            task.remove();
+        })
+        
+        for(let i=0; i < tasks.length; i++) {
+            let date = tasks[i].date;
+            let newDate = date.replace(/-/g, ', ');
+            const result = isThisWeek(new Date(newDate))
+            if(result === true) {   
+                UI.addTaskToList(tasks[i])
+            }
         }
     }
 }

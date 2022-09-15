@@ -1,4 +1,5 @@
 import { UI } from ".";
+import { StoreTasks } from ".";
 import { Inbox } from "./inbox";
 import { isToday } from 'date-fns';
 
@@ -25,21 +26,38 @@ export class Today {
     //Open Today's projects
     static selectToday(e) {
         e.preventDefault();
-        console.log(e.target);
-
-        //Sidebar list
-        const inbox = document.querySelector('.inbox');
-        const today = document.querySelector('.today');
-        const week = document.querySelector('.week');
         
         const newTask = document.querySelector('.new-task');
 
         Today.createToday();
+        Today.displayToday();
 
         if(newTask) {
             Inbox.removeNewTask();
-         }
+        }
+    }
+
+    // Display only Today's tasks
+    static displayToday() {
+        const list = Array.from(document.querySelector('#to-do-list').childNodes);
+        const tasks = StoreTasks.getTasks();
+
+        list.forEach(task => {
+            task.remove();
+        })
+        
+        for(let i=0; i < tasks.length; i++) {
+            let date = tasks[i].date;
+            let newDate = date.replace(/-/g, ', ');
+            const result = isToday(new Date(newDate))
+            if(result === true) {   
+                UI.addTaskToList(tasks[i])
+            }
+        }
     }
 }
+
+
+
 
 document.querySelector('.today').addEventListener('click', Today.selectToday);

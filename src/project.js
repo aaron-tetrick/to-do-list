@@ -1,3 +1,7 @@
+import { StoreTasks } from ".";
+import { UI } from ".";
+import { isThisWeek } from 'date-fns';
+
 export class ProjectEntry {
     // Creates sidebar projects
     static createProject(projectTitle) {
@@ -31,5 +35,21 @@ export class ProjectEntry {
         } else if(newTask.style.display === 'none') {
             newTask.style.display = 'block';
         }
+    }
+
+       // Click Project on Sidebar
+       static selectProject(projectTitle) {
+        const list = Array.from(document.querySelector('#to-do-list').childNodes);
+        const tasks = StoreTasks.getTasks();
+
+        list.forEach(task => {
+            task.remove();
+        })
+        
+        for(let i=0; i < tasks.length; i++) {
+        if(tasks[i].project === projectTitle) {
+            UI.addTaskToList(tasks[i])
+        }
+    }
     }
 }
