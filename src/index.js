@@ -3,7 +3,7 @@ import { Inbox } from './inbox';
 import { Today } from './today';
 import { Week } from './week';
 import { ProjectEntry } from './project';
-import { format, addDays, parseISO } from 'date-fns';
+import { format, addDays, parseISO, isToday, isThisWeek } from 'date-fns';
 
 // Load the Inbox page (and the hidden Modal) on pageload
 Modal.createModal();
@@ -517,25 +517,30 @@ document.querySelector('.modal-form').addEventListener('submit', (e) => {
     const date = document.querySelector('.form-date').value
     const priority = document.querySelector('.form-priority').value;
     const project = document.querySelector('.form-project').value;
-
-
     const contentTitle = document.querySelector('.title').innerText;
     let tasks = StoreTasks.getTasks();
 
     // Check if a task already exists
-  let match = tasks.filter(task => { if(task.title === title) true });
+  let match = [];
   
+  tasks.filter(task => { if(task.title === title) { 
+    match.push(task);
+    }
+});
         // Validate
-        if(title === '' || date === '' || priority === '' || project === '') {
+        if(title === '' || date === '' || priority === '') {
             UI.showAlert();
         } else if(match.length > 0) {
             alert('Task names must be different');
         } else {
-            
             // Instantiate Task
             const task = new Task(title, date, priority, project)
 
-            if(contentTitle === 'Inbox' || contentTitle === task.project) {
+            let newDate = date.replace(/-/g, ', ');
+            const todayResult = isToday(new Date(newDate));
+            const weekResult = isThisWeek(new Date(newDate));
+            
+            if(contentTitle === 'Inbox' || contentTitle === task.project || todayResult === true && contentTitle === 'Today' || weekResult === true && contentTitle === 'This Week') {
              // Add Task to UI
              UI.addTaskToList(task);
             }

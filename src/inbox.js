@@ -8,7 +8,6 @@ export class Inbox {
         const newTask = document.querySelector('.new-task');
         const table = document.querySelector('#table');
 
-        
         // Changes title text
         if(oldTitle === null) {
             title.innerText = "Inbox";
