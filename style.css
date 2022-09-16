@@ -170,6 +170,16 @@ h2 {
     border: rgb(204, 74, 74);
 }
 
+.signature {
+    text-decoration: none;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    position: fixed;
+    bottom: 10px;
+    left: 48px;
+}
+
 /* MAIN CONTENT */
 #content {
     background-color: rgb(253, 245, 218);
@@ -440,7 +450,8 @@ h2 {
 .today:hover,
 .week:hover,
 #add-project:hover,
-.project-list-item:hover {
+.project-list-item:hover,
+.signature:hover {
     cursor: pointer;
     filter: invert(98%) sepia(2%) saturate(15%) hue-rotate(62deg) brightness(104%) contrast(100%);
     transform: scale(1);
