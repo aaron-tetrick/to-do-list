@@ -46,9 +46,9 @@ export class ProjectEntry {
         })
         
         for(let i=0; i < tasks.length; i++) {
-        if(tasks[i].project === projectTitle) {
+            if(tasks[i].project === projectTitle) {
             UI.addTaskToList(tasks[i])
+            }
         }
-    }
     }
 }

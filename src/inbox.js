@@ -36,8 +36,10 @@ export class Inbox {
         }
     }
     
+    // DELETE ALL OF THESE!!!!!!!!!!!!!!!!!!!!!!!!!!!
     static removeNewTask() {
-        newTask.style.display = 'none';
+        const newTask = document.querySelector('.new-task');
+        newTask.style.display = 'block';
     }
 
     //Open Inbox

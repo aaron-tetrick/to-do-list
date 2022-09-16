@@ -9,6 +9,7 @@ export class Today {
         const contentTitle = document.getElementById('content-title');
         const title = document.createElement('h2');
         const oldTitle = document.querySelector('.title');
+        const newTask = document.querySelector('.new-task');
 
         oldTitle.remove();
         title.innerText = "Today";
@@ -20,6 +21,13 @@ export class Today {
             return;
         } else if(table.style.display === 'none') {
             table.style.display = 'block';
+        }
+
+        // Displays newTask Button
+        if(newTask.style.display === 'block') {
+            return;
+        } else if(newTask.style.display === 'none') {
+            newTask.style.display = 'block';
         }
     }
 

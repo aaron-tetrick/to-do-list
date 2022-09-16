@@ -83,7 +83,6 @@ export class StoreTasks {
 
     static removeTask(title) {
         const tasks = StoreTasks.getTasks();
-
         tasks.forEach((task, index) => {
             if(task.title === title) {
                 tasks.splice(index, 1);
@@ -113,7 +112,6 @@ export class StoreTasks {
 
     static removeProject(title) {
         const projects = StoreProjects.getProjects();
-
         projects.forEach((project, index) => {
             if(project.title === title) {
                 projects.splice(index, 1);
@@ -141,7 +139,6 @@ export class UI {
     // Task UI Methods
     static displayTasks() { 
         const tasks = StoreTasks.getTasks();
-
         tasks.forEach(task => UI.addTaskToList(task));
     }
 
@@ -166,7 +163,6 @@ export class UI {
         `;
 
         UI.showPriority(row.children[3])
-
         list.appendChild(row);
     }
 
@@ -181,6 +177,7 @@ export class UI {
             el.classList.add('low');
         }
     }
+
     // Deletes a task from the UI
     static deleteTask(el) {
         if(el.classList.contains('completed')) {
@@ -232,8 +229,6 @@ export class UI {
         let formatTitle = title.replaceAll(' ', '-');
         const priorityDropdown = document.createElement('select');
         const priorityParent = document.querySelector(`.${formatTitle}-parent`);
-
-        console.log(priorityParent);
     
         priorityDropdown.classList.add(`priority-dropdown-${formatTitle}`);
         priorityDropdown.classList.add(`priority-dropdown`);
@@ -331,6 +326,7 @@ export class UI {
             el.parentElement.remove();
          }
         }
+
     // Add Project Entry to Modal
     static addProjectOptionToModal(option) {
         const projectDropdown = document.querySelector('.form-project');
@@ -350,6 +346,7 @@ export class UI {
             }
         }
     }
+
     // Populate the dropdown with the project entries after reloading page.
     static populateDropdown() {
       const projectsList = Array.from(document.querySelector('.projects-list').children);
@@ -403,7 +400,6 @@ document.querySelector('.cancel-btn').addEventListener('click', UI.closeModal);
                     if(task.title.includes(' ')) {
                         let newTitle = task.title.replaceAll(' ', '-');
                         let taskUI = document.querySelector(`#${newTitle}`);
-                        console.log(newTitle, task.title, taskUI);
                         UI.deleteTask(taskUI);
                     } else {
                     let taskUI = document.querySelector(`#${task.title}`);
@@ -575,8 +571,8 @@ document.querySelector('#table').addEventListener('dblclick', (e) => {
         const currentTitle = e.target.innerText
         UI.changeTitle(e.target);
 
-           // Change a New Title entry
-    document.querySelector('#change-title-btn').addEventListener('click', (e) => {
+        // Change a New Title entry
+        document.querySelector('#change-title-btn').addEventListener('click', (e) => {
         // Prevent Default
         e.preventDefault();
 
@@ -598,8 +594,7 @@ document.querySelector('#table').addEventListener('dblclick', (e) => {
 
     // Keeps the Title name the same
     e.target.parentElement.parentElement.parentElement.parentElement.innerText = currentTitle;
-
-})
+        })
     }
  
 })

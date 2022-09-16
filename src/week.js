@@ -9,6 +9,7 @@ export class Week {
         const contentTitle = document.getElementById('content-title');
         const oldTitle = document.querySelector('.title');
         const title = document.createElement('h2');
+        const newTask = document.querySelector('.new-task');
 
         oldTitle.remove();
         title.innerText = "Week";
@@ -21,16 +22,18 @@ export class Week {
         } else if(table.style.display === 'none') {
             table.style.display = 'block';
         }
+
+        // Displays newTask Button
+        if(newTask.style.display === 'block') {
+            return;
+        } else if(newTask.style.display === 'none') {
+            newTask.style.display = 'block';
+        }
     }
 
     //Open Week projects
     static selectWeek(e) {
         e.preventDefault();
-
-        //Sidebar list
-        const inbox = document.querySelector('.inbox');
-        const today = document.querySelector('.today');
-        const week = document.querySelector('.week');
 
         const newTask = document.querySelector('.new-task');
      
