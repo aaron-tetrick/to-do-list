@@ -539,8 +539,8 @@ document.querySelector('.modal-form').addEventListener('submit', (e) => {
             let newDate = date.replace(/-/g, ', ');
             const todayResult = isToday(new Date(newDate));
             const weekResult = isThisWeek(new Date(newDate));
-            
-            if(contentTitle === 'Inbox' || contentTitle === task.project || todayResult === true && contentTitle === 'Today' || weekResult === true && contentTitle === 'This Week') {
+
+            if(contentTitle === 'Inbox' || contentTitle === task.project || todayResult === true && contentTitle === 'Today' || weekResult === true && contentTitle === 'Week') {
              // Add Task to UI
              UI.addTaskToList(task);
             }
